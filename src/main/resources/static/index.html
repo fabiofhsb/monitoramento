@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Controle de Gado</title>
+
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 20
+    }
+
+    #area-menu {
+      background-color: #fff;
+      /*text-align: center;*/
+      clear: both;
+      color: #2F4F4F;
+      font-size: 18px;
+      line-height: 0px;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    a {
+      text-decoration: none;
+      padding: 10px;
+
+    }
+
+    a:link,
+    a:visited {
+      color: #2F4F4F;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #0318017e;
+      background: white;
+      text-decoration: none;
+    }
+
+
+
+    #disponiveis {
+      border: 1px solid black;
+      width: 100%;
+      background-color: white;
+      text-align: center;
+      margin: auto;
+      display: none;
+      /* esconde a tabela por padrão */
+    }
+
+    #disponiveis.visible {
+      display: block;
+      /* mostra a tabela quando a classe "visible" é adicionada */
+    }
+
+
+
+
+
+
+    h1 {
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      background-color: #006400;
+      text-align: center;
+      clear: both;
+      color: white;
+      font-size: 38px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      line-height: 20px;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    h1 img {
+      margin-top: 5px;
+      /*display: block;*/
+      /* torna a imagem um elemento de bloco */
+      /*margin: auto;*/
+      /* centraliza a imagem horizontalmente */
+      margin-bottom: -20px;
+      /* adiciona uma margem inferior para separar a imagem do texto */
+    }
+
+    /*h1 div {
+      display: block;
+    }*/
+
+    h2 {
+      background-color: #006400;
+      text-align: center;
+      color: white;
+      border-radius: 0px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+
+
+    }
+
+    h3 {
+      background-color: white;
+      text-align: center;
+      color: #348344;
+      font-size: 0px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      line-height: 0px;
+      margin-bottom: 20px;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    h4 {
+      background-color: #DCDCDC;
+      line-height: 40px;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    label,
+    input [type="date"] {
+      display: block;
+      margin-bottom: 0px;
+      text-align: center;
+      padding: 0px;
+      color: white;
+    }
+
+    #dataConsulta {
+      border-radius: 6px;
+    }
+
+
+    form [type="number"],
+    form [type="text"],
+    form [type="date"],
+    select {
+      display: block;
+      margin: auto;
+      margin-bottom: 15px;
+      width: 55%;
+      border-radius: 6px;
+    }
+
+
+
+
+    button {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      background: white;
+      border-radius: 8px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    #btnConsultar {
+      margin-top: 15px;
+
+    }
+
+    .btn_edit {
+      background-color: #FFD700;
+      color: black;
+      margin-right: 4%;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      margin-top: 3%;
+      margin-bottom: 3%;
+    }
+
+    .btn_delete {
+      background-color: #FF4500;
+      color: white;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+
+
+    table {
+      text-align: center;
+      border-collapse: collapse;
+    }
+
+
+    table th,
+    table tr,
+    table td {
+      border: 1px solid black;
+
+      text-align: center;
+      margin: auto;
+
+    }
+
+    th {
+      background-color: #FFFFF0;
+
+    }
+
+    tr:nth-child(even) {
+      background: #FFFFF0;
+    }
+
+    .filtro {
+      width: 100%;
+
+    }
+
+
+    #txtColuna1 {
+      width: 90%;
+    }
+
+    #txtColuna2 {
+      width: 90%;
+    }
+
+    #txtColuna3 {
+      width: 90%;
+    }
+
+    #txtColuna4 {
+      width: 90%;
+    }
+
+    #txtColuna5 {
+      width: 90%;
+    }
+
+    #txtColuna6 {
+      width: 90%;
+    }
+
+    h5 {
+      background-color: #223b48;
+      border: 1px solid black;
+      border-radius: 10px;
+      vertical-align: center;
+      color: white;
+      width: 100%;
+      text-align: center;
+      text-align: center;
+      font-size: 25px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      line-height: 25px;
+      margin-bottom: 5px;
+    }
+
+    .ticker {
+      line-height: 15px;
+      overflow: hidden;
+      display: flex;
+      width: 100vw;
+    }
+
+    .ticker__list {
+      display: flex;
+      margin-top: 0px;
+      animation: ticker 50s infinite linear;
+      text-align: center;
+    }
+
+    .ticker:hover .ticker__list {
+      animation-play-state: infinite linear;
+    }
+
+    .ticker__item {
+      border: 1px solid #e9e9e9;
+      margin-right: 0px;
+      background-color: #fdfdfd;
+      width: 300px
+    }
+
+    @keyframes ticker {
+      100% {
+        transform: translateX(-100vw);
+        /*try changing this to -100vw*/
+      }
+    }
+
+    span {
+      color: #424242;
+    }
+
+    #ww_6170df6b3e605 {
+      text-align: center;
+    }
+
+    #cotacao {
+      text-align: center;
+    }
+
+    #cotacoes {
+      border: 0px;
+    }
+
+    h7 {
+      height: 40px;
+      width: 95px;
+      background: #223b48;
+      color: #223b48;
+      position: absolute;
+    }
+
+    h8 {
+
+      height: 40px;
+      width: 95px;
+      background: #223b48;
+      color: #223b48;
+      position: absolute;
+      right: 0;
+    }
+
+    h9 {
+      margin-top: 0px;
+      position: absolute;
+      right: 15%;
+      bottom: 85%;
+      font-size: 21px;
+    }
+
+    .container {
+      margin-top: 10px;
+      display: block;
+
+
+    }
+
+    .div1 {
+      border: 1px solid black;
+      width: 450px;
+      padding: 0px;
+
+      /*box-sizing: border-box;*/
+      margin: auto;
+      margin-bottom: 15px;
+      /*margin-right: 0.5%;*/
+      border-radius: 30px;
+      text-align: center;
+    }
+
+    .div2 {
+      border: 1px solid black;
+      width: 450px;
+      padding: 0px;
+
+      /* box-sizing: border-box;*/
+      margin: auto;
+      margin-bottom: 15px;
+      /* margin-left: 0.5%;*/
+      border-radius: 30px;
+      text-align: center;
+    }
+
+    /*h1 {
+  background-image: url('/images/nelores.jpg');
+  background-size: cover;
+  }*/
+
+    #meuTexto {
+      margin-top: 0px;
+      font-size: 19px;
+      /* Tamanho inicial da fonte */
+    }
+
+    #aumentarFonte {
+      color: white;
+      font-size: 17px;
+      bottom: 84%;
+      border: 0px;
+      background-color: #006400;
+      ;
+      position: absolute;
+      right: 12%;
+    }
+
+    #diminuirFonte {
+      color: white;
+      font-size: 17px;
+      bottom: 84%;
+      border: 0px;
+      background-color: #006400;
+      position: absolute;
+      right: 10%;
+    }
+
+    br {
+      margin-top: 15px;
+    }
+
+    #grafico {
+
+
+      /*margin-left: auto;*/
+      text-align: center;
+      margin-left: 16%;
+    }
+
+    #graficoUmidade {
+
+      /*margin-left: auto;*/
+      text-align: center;
+      margin-left: 16%;
+    }
+
+    p {
+      margin-top: 5%;
+      text-align: center;
+      font-size: 28px;
+    }
+
+    #monitoramento {
+      padding: 20px;
+      font-size: 40px;
+      text-align: center;
+    }
+  </style>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script>
+    $(function () {
+      $("#tabelaAnimais input").keyup(function () {
+        var index = $(this).parent().index();
+        var nth = "#tabelaAnimais td:nth-child(" + (index + 1).toString() + ")";
+        var valor = $(this).val().toUpperCase();
+        $("#tabelaAnimais tbody tr").show();
+        $(nth).each(function () {
+          var texto = $(this).text().toUpperCase();
+          if (texto.substring(0, valor.length) !== valor) {
+            $(this).parent().hide();
+          }
+        });
+      });
+
+      $("#tabelaAnimais input").blur(function () {
+        $(this).val("");
+      });
+    });
+
+  </script>
+
+</head>
+
+<body>
+
+  <h1>
+    <img src="/images/logo.png" width="200px" height="130px">
+
+    Monitoramento Ambiental em Compost Barn
+
+    <img src="/images/logo.png" width="200px" height="130px">
+
+  </h1>
+
+  </script>
+  </div>
+
+  <!-- TradingView Widget BEGIN -->
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+      async>
+        {
+          "symbols": [
+            {
+              "proName": "BINANCE:BTCBRL",
+              "title": "Bitcoin"
+            },
+            {
+              "proName": "BINANCE:ETHBRL",
+              "title": "Ethereum"
+            },
+            {
+              "proName": "EIGHTCAP:USDBRL",
+              "title": "Dollar"
+            },
+            {
+              "proName": "FX_IDC:EURBRL",
+              "title": "Euro"
+            },
+            {
+              "proName": "FX_IDC:GBPBRL",
+              "title": "Libra"
+            },
+            {
+              "proName": "FX_IDC:ARSBRL",
+              "title": "Peso Argentino"
+            }
+          ],
+            "colorTheme": "dark",
+              "locale": "br",
+                "largeChartUrl": "",
+                  "isTransparent": false,
+                    "showSymbolLogo": true,
+                      "displayMode": "adaptive"
+        }
+      </script>
+  </div>
+  <!-- TradingView Widget END -->
+
+
+
+
+  <div class="container">
+
+
+    <div class="div1">
+      <p>Temperatura</p>
+      <div id="grafico"></div>
+    </div>
+    <div class="div3">
+      <Button></Button>
+    </div>
+    <div class="div2">
+      <p>Umidade</p>
+      <div id="graficoUmidade"></div>
+    </div>
+
+  </div>
+
+
+
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script>
+    // Chama a função atualizarTemperatura a cada 10 minutos
+    setInterval(atualizarTemperatura, 10 * 60 * 1000);
+
+    function atualizarTemperatura() {
+      const apiKey = '9e5e8c6d3873cae24b71872aec659579';
+      const cidade = 'Guaratinguetá';
+      const LIMITE_TEMPERATURA = 18.0;
+      const emailUsuario = 'temp.compost@gmail.com'; // Substitua pelo e-mail real do usuário
+
+      fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cidade + '&appid=' + apiKey)
+        .then(response => response.json())
+        .then(data => {
+          const umidade = data.main.humidity;
+          const temperaturaK = data.main.temp;
+          const temperaturaC = temperaturaK - 273.15;
+          const temperaturaCorrigida = temperaturaC - 3.0;
+
+          // Atualiza os gráficos
+          atualizarGrafico(temperaturaC);
+          atualizarGraficoUmidade(umidade);
+
+          // Verifica se a temperatura ultrapassou o limite
+          if (temperaturaCorrigida >= LIMITE_TEMPERATURA) {
+            fetch('api/enviar-alerta', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                email: emailUsuario,
+                temperatura: temperaturaCorrigida.toFixed(1),
+                cidade: cidade
+              })
+            })
+              .then(response => {
+                if (response.ok) {
+                  console.log('🚨 Alerta de temperatura enviado com sucesso!');
+                } else {
+                  console.error('❌ Falha ao enviar alerta.');
+                }
+              })
+              .catch(error => {
+                console.error('Erro ao enviar alerta:', error);
+              });
+          }
+        })
+        .catch(error => console.error('Erro ao buscar temperatura:', error));
+    }
+
+    /*document.getElementById('temperatura').addEventListener('click', atualizarTemperatura);*/
+    document.addEventListener('DOMContentLoaded', (event) => {
+      atualizarTemperatura();
+    });
+
+
+    // Cria um gráfico de meio círculo com D3.js
+    var svg = d3.select("#grafico")
+      .append("svg")
+      .attr("width", 400)
+      .attr("height", 240);
+
+    var g = svg.append("g")
+      .attr("transform", "translate(160,160)");
+
+    var arc = d3.arc()
+      .innerRadius(116)
+      .outerRadius(120)
+      .startAngle(-Math.PI / 2)
+      .endAngle(Math.PI / 2);
+
+    g.append("path")
+      .attr("d", arc)
+      .attr("fill", "#ddd");
+    // Adiciona marcas de escala
+    g.append("text")
+      .attr("transform", "translate(-130,20)")
+      .text("0°C");
+
+    g.append("text")
+      .attr("transform", "translate(105,20)")
+      .text("50°C");
+
+    // Adiciona um texto para exibir a temperatura atual
+    var temperaturaTexto = g.append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", "-50") // Move o texto para cima
+      .style("font-size", "24px"); // Aumenta o tamanho do texto
+
+
+
+    function atualizarGrafico(temperaturaC) {
+      var percent = temperaturaC / 50; // Converte a temperatura para uma porcentagem
+      var angle = percent * Math.PI; // Converte a porcentagem para um ângulo
+
+      var arcAtual = d3.arc()
+        .innerRadius(110)
+        .outerRadius(126)
+        .startAngle(-Math.PI / 2)
+        .endAngle(angle - Math.PI / 2)
+        .cornerRadius(20); // Adiciona um raio nas extremidades do arco
+
+      g.append("path")
+        .attr("d", arcAtual)
+        .attr("fill", "#20B2AA");
+
+      // Atualiza o texto com a temperatura atual
+      temperaturaTexto.text((temperaturaC.toFixed(1) - 3.0) + "°C");
+    }
+
+    // Cria um gráfico de meio círculo com D3.js
+    var svg1 = d3.select("#graficoUmidade")
+      .append("svg")
+      .attr("width", 400)
+      .attr("height", 240);
+
+    var g1 = svg1.append("g")
+      .attr("transform", "translate(160,160)");
+
+    var arc = d3.arc()
+      .innerRadius(116)
+      .outerRadius(120)
+      .startAngle(-Math.PI / 2)
+      .endAngle(Math.PI / 2);
+
+    g1.append("path")
+      .attr("d", arc)
+      .attr("fill", "#ddd");
+    // Adiciona marcas de escala
+    g1.append("text")
+      .attr("transform", "translate(-130,20)")
+      .text("0");
+
+    g1.append("text")
+      .attr("transform", "translate(105,20)")
+      .text("100%");
+
+    // Adiciona um texto para exibir a temperatura atual
+    var umidadeTexto2 = g1.append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", "-50") // Move o texto para cima
+      .style("font-size", "24px"); // Aumenta o tamanho do texto
+
+    function atualizarGraficoUmidade(umidade) {
+      var percent = umidade / 100; // Converte a umidade para uma porcentagem
+      var angle = percent * Math.PI; // Converte a porcentagem para um ângulo
+
+      var arcAtual = d3.arc()
+        .innerRadius(110)
+        .outerRadius(126)
+        .startAngle(-Math.PI / 2)
+        .endAngle(angle - Math.PI / 2)
+        .cornerRadius(20); // Adiciona um raio nas extremidades do arco
+
+      g1.append("path")
+        .attr("d", arcAtual)
+        .attr("fill", "#20B2AA");
+
+      // Atualiza o texto com a temperatura atual
+      umidadeTexto2.text(((umidade + 2.6).toFixed(1)) + "%");
+    }
+
+
+
+
+
+    /*var temperaturaC; // A temperatura em Celsius
+
+    // Atualiza o gráfico com a temperatura atual
+    function atualizarGrafico(temperaturaC) {
+        var percent = temperaturaC / 50; // Converte a temperatura para uma porcentagem
+        var angle = percent * Math.PI; // Converte a porcentagem para um ângulo
+
+        var arcAtual = d3.arc()
+            .innerRadius(100)
+            .outerRadius(150)
+            .startAngle(-Math.PI / 2)
+            .endAngle(angle - Math.PI / 2);
+
+        g.append("path")
+            .attr("d", arcAtual)
+            .attr("fill", "orange");
+    }
+
+    // Chama a função para atualizar o gráfico
+    atualizarGrafico(temperaturaC);*/
+
+    //Aumentar o tamanho da fonte (acessibilidade)
+    const aumentarBotao = document.getElementById('aumentarFonte');
+    const diminuirBotao = document.getElementById('diminuirFonte');
+    const meuTexto = document.getElementById('meuTexto');
+
+    aumentarBotao.addEventListener('click', function () {
+      const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
+      const novoTamanho = parseFloat(tamanhoAtual) + 2; // Aumenta 2 pixels
+      meuTexto.style.fontSize = novoTamanho + 'px';
+    });
+
+    diminuirBotao.addEventListener('click', function () {
+      const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
+      const novoTamanho = parseFloat(tamanhoAtual) - 2; // Diminui 2 pixels
+      meuTexto.style.fontSize = novoTamanho + 'px';
+    });
+
+  </script>
