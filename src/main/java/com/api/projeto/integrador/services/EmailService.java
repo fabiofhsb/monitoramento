@@ -37,7 +37,7 @@ public class EmailService {
             Message mensagem = new MimeMessage(sessao);
             mensagem.setFrom(new InternetAddress(remetente));
             mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            mensagem.setSubject("🚨 Alerta de Temperatura Elevada");
+            mensagem.setSubject("Alerta de Temperatura Elevada");
 
             String html = "<!DOCTYPE html>" +
                     "<html><head><meta charset='UTF-8'>" +
@@ -50,12 +50,12 @@ public class EmailService {
                     ".footer { margin-top: 20px; font-size: 12px; color: #777; }" +
                     "</style></head><body>" +
                     "<div class='container'>" +
-                    "<div class='header'>🚨 Alerta de Temperatura Elevada</div>" +
+                    "<div class='header'>Alerta de Temperatura Elevada!</div>" +
                     "<div class='content'>" +
                     "<p>Atenção!</p>" +
-                    "<p>Detectamos uma temperatura acima do limite no <strong>Galpão</strong></p>" +
+                    "<p>Detectamos uma temperatura acima do limite no <strong>Galpão.</strong></p>" +
                     "<p><strong>Temperatura registrada:</strong> <span style='color:#d32f2f;'>" + temperatura
-                    + "°C</span></p>" +
+                    + "°C.</span></p>" +
                     "<p>Recomenda-se verificar as condições do ambiente e tomar medidas preventivas para garantir o bem-estar dos animais.</p>"
                     +
                     "<p>Este alerta foi gerado automaticamente pelo sistema de monitoramento compost barn.</p>" +

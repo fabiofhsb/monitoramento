@@ -508,6 +508,10 @@
             {
               "proName": "FX_IDC:ARSBRL",
               "title": "Peso Argentino"
+            },
+            {
+              "proName": "OANDA:XAUUSD",
+              "title": "Ouro"
             }
           ],
             "colorTheme": "dark",
@@ -552,7 +556,7 @@
     function atualizarTemperatura() {
       const apiKey = '9e5e8c6d3873cae24b71872aec659579';
       const cidade = 'Guaratinguetá';
-      const LIMITE_TEMPERATURA = 18.0;
+      const LIMITE_TEMPERATURA = 35.0;
       const emailUsuario = 'temp.compost@gmail.com'; // Substitua pelo e-mail real do usuário
 
       fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cidade + '&appid=' + apiKey)
@@ -561,7 +565,7 @@
           const umidade = data.main.humidity;
           const temperaturaK = data.main.temp;
           const temperaturaC = temperaturaK - 273.15;
-          const temperaturaCorrigida = temperaturaC - 3.0;
+          const temperaturaCorrigida = temperaturaC - 0.5;
 
           // Atualiza os gráficos
           atualizarGrafico(temperaturaC);
@@ -569,7 +573,7 @@
 
           // Verifica se a temperatura ultrapassou o limite
           if (temperaturaCorrigida >= LIMITE_TEMPERATURA) {
-            fetch('api/enviar-alerta', {
+            fetch('animal/api/enviar-alerta', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -652,7 +656,7 @@
         .attr("fill", "#20B2AA");
 
       // Atualiza o texto com a temperatura atual
-      temperaturaTexto.text((temperaturaC.toFixed(1) - 3.0) + "°C");
+      temperaturaTexto.text((temperaturaC.toFixed(1) - 0.5) + "°C");
     }
 
     // Cria um gráfico de meio círculo com D3.js
@@ -704,7 +708,7 @@
         .attr("fill", "#20B2AA");
 
       // Atualiza o texto com a temperatura atual
-      umidadeTexto2.text(((umidade + 2.6).toFixed(1)) + "%");
+      umidadeTexto2.text(((umidade).toFixed(1)) + "%");
     }
 
 
@@ -732,7 +736,7 @@
     // Chama a função para atualizar o gráfico
     atualizarGrafico(temperaturaC);*/
 
-    //Aumentar o tamanho da fonte (acessibilidade)
+    /*Aumentar o tamanho da fonte (acessibilidade)
     const aumentarBotao = document.getElementById('aumentarFonte');
     const diminuirBotao = document.getElementById('diminuirFonte');
     const meuTexto = document.getElementById('meuTexto');
@@ -747,6 +751,6 @@
       const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
       const novoTamanho = parseFloat(tamanhoAtual) - 2; // Diminui 2 pixels
       meuTexto.style.fontSize = novoTamanho + 'px';
-    });
+    });*/
 
   </script>
