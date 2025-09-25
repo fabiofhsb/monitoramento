@@ -2,7 +2,7 @@ package com.api.projeto.integrador.controllers;
 
 //import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+//import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.projeto.integrador.models.ControleDeGado;
-import com.api.projeto.integrador.services.ControleDeGadoService;
+/*import com.api.projeto.integrador.models.ControleDeGado;
+import com.api.projeto.integrador.services.ControleDeGadoService;*/
 import com.api.projeto.integrador.services.EmailService;
 
 import java.util.List;
@@ -37,64 +37,71 @@ public class ControleDeGadoController {
         return ResponseEntity.ok().build();
     }
 
-    @Autowired
-    private ControleDeGadoService controleDeGadoService;
-
-    @PostMapping
-    public ResponseEntity<ControleDeGado> salvar(@RequestBody ControleDeGado controleDeGado) {
-        ControleDeGado controleDeGadoSalvo = controleDeGadoService.salvar(controleDeGado);
-        return ResponseEntity.ok(controleDeGadoSalvo);
-    }
-
-    @GetMapping("/dados")
-    public ResponseEntity<List<ControleDeGado>> obterDadosAnimais() {
-        List<ControleDeGado> registros = controleDeGadoService.buscarTodos();
-        return ResponseEntity.ok(registros);
-    }
-
-    @GetMapping("/medias")
-    public ResponseEntity<Map<String, Object>> obterMediasPorNumeroProdutor() {
-        Map<String, Object> medias = controleDeGadoService.calcularMediaTemperaturaPorData();
-        return ResponseEntity.ok(medias);
-    }
-
-    @GetMapping("/temperatura/media")
-    public ResponseEntity<Double> obterMediaTemperatura() {
-        double media = controleDeGadoService.calcularMediaTemperatura();
-        return ResponseEntity.ok(media);
-    }
-
-    @GetMapping("/temperatura/maxima")
-    public ResponseEntity<Double> obterTemperaturaMaxima() {
-        double temperaturaMaxima = controleDeGadoService.calcularTemperaturaMaxima();
-        return ResponseEntity.ok(temperaturaMaxima);
-    }
-
-    @GetMapping("/temperatura/minima")
-    public ResponseEntity<Double> obterTemperaturaMinima() {
-        double temperaturaMinima = controleDeGadoService.calcularTemperaturaMinima();
-        return ResponseEntity.ok(temperaturaMinima);
-    }
-
-    @GetMapping("/umidade/media")
-    public ResponseEntity<Double> obterMediaUmidade() {
-        double mediaUmidade = controleDeGadoService.calcularMediaUmidade();
-        return ResponseEntity.ok(mediaUmidade);
-    }
-
-    @GetMapping("/umidade/maxima")
-    public ResponseEntity<Double> obterUmidadeMaxima() {
-        double umidadeMaxima = controleDeGadoService.calcularUmidadeMaxima();
-        return ResponseEntity.ok(umidadeMaxima);
-    }
-
-    @GetMapping("/umidade/minima")
-    public ResponseEntity<Double> obterUmidadeMinima() {
-        double umidadeMinima = controleDeGadoService.calcularUmidadeMinima();
-        return ResponseEntity.ok(umidadeMinima);
-    }
+    /*
+     * @Autowired
+     * private ControleDeGadoService controleDeGadoService;
+     * 
+     * @PostMapping
+     * public ResponseEntity<ControleDeGado> salvar(@RequestBody ControleDeGado
+     * controleDeGado) {
+     * ControleDeGado controleDeGadoSalvo =
+     * controleDeGadoService.salvar(controleDeGado);
+     * return ResponseEntity.ok(controleDeGadoSalvo);
+     * }
+     * 
+     * @GetMapping("/dados")
+     * public ResponseEntity<List<ControleDeGado>> obterDadosAnimais() {
+     * List<ControleDeGado> registros = controleDeGadoService.buscarTodos();
+     * return ResponseEntity.ok(registros);
+     * }
+     */
 
     /*
+     * @GetMapping("/medias")
+     * public ResponseEntity<Map<String, Object>> obterMediasPorNumeroProdutor() {
+     * Map<String, Object> medias =
+     * controleDeGadoService.calcularMediaTemperaturaPorData();
+     * return ResponseEntity.ok(medias);
+     * }
+     * 
+     * @GetMapping("/temperatura/media")
+     * public ResponseEntity<Double> obterMediaTemperatura() {
+     * double media = controleDeGadoService.calcularMediaTemperatura();
+     * return ResponseEntity.ok(media);
+     * }
+     * 
+     * @GetMapping("/temperatura/maxima")
+     * public ResponseEntity<Double> obterTemperaturaMaxima() {
+     * double temperaturaMaxima = controleDeGadoService.calcularTemperaturaMaxima();
+     * return ResponseEntity.ok(temperaturaMaxima);
+     * }
+     * 
+     * @GetMapping("/temperatura/minima")
+     * public ResponseEntity<Double> obterTemperaturaMinima() {
+     * double temperaturaMinima = controleDeGadoService.calcularTemperaturaMinima();
+     * return ResponseEntity.ok(temperaturaMinima);
+     * }
+     * 
+     * @GetMapping("/umidade/media")
+     * public ResponseEntity<Double> obterMediaUmidade() {
+     * double mediaUmidade = controleDeGadoService.calcularMediaUmidade();
+     * return ResponseEntity.ok(mediaUmidade);
+     * }
+     * 
+     * @GetMapping("/umidade/maxima")
+     * public ResponseEntity<Double> obterUmidadeMaxima() {
+     * double umidadeMaxima = controleDeGadoService.calcularUmidadeMaxima();
+     * return ResponseEntity.ok(umidadeMaxima);
+     * }
+     * 
+     * @GetMapping("/umidade/minima")
+     * public ResponseEntity<Double> obterUmidadeMinima() {
+     * double umidadeMinima = controleDeGadoService.calcularUmidadeMinima();
+     * return ResponseEntity.ok(umidadeMinima);
+     * }
+     * 
+     * /*
+     * 
      * @GetMapping("/classificacao/{classificacao}")
      * public ResponseEntity<Integer> contarPorClassificacao(@PathVariable String
      * classificacao) {
@@ -207,13 +214,14 @@ public class ControleDeGadoController {
      * controleDeGadoService.calcularTouros(calendar.getTime());
      * return ResponseEntity.ok(tourosDisponiveis);
      * }
-     */
-
-    @GetMapping("/cabeças-de-gado")
-    public Page<ControleDeGado> listarCabeçasDeGadoPaginado(@RequestParam(defaultValue = "0") int page) {
-        return controleDeGadoService.listarCabeçasDeGadoPaginado(page, 500);
-    }
-    /*
+     * 
+     * 
+     * @GetMapping("/cabeças-de-gado")
+     * public Page<ControleDeGado>
+     * listarCabeçasDeGadoPaginado(@RequestParam(defaultValue = "0") int page) {
+     * return controleDeGadoService.listarCabeçasDeGadoPaginado(page, 500);
+     * }
+     * 
      * @DeleteMapping("/delete/{id}")
      * public void deleteById(@PathVariable("id") UUID id) {
      * controleDeGadoService.deleteById(id);
