@@ -73,7 +73,7 @@
       justify-content: center;
       display: flex;
       align-items: center;
-      background-color: #006400;
+      background-color: #0079C2;
       text-align: center;
       clear: both;
       color: white;
@@ -88,12 +88,14 @@
     }
 
     h1 img {
-      margin-top: 5px;
+      margin-top: 10px;
+      margin-left: 5%;
+      margin-right: 5%;
       /*display: block;*/
       /* torna a imagem um elemento de bloco */
       /*margin: auto;*/
       /* centraliza a imagem horizontalmente */
-      margin-bottom: -20px;
+      margin-bottom: 10px;
       /* adiciona uma margem inferior para separar a imagem do texto */
     }
 
@@ -103,6 +105,7 @@
 
     h2 {
       background-color: #006400;
+
       text-align: center;
       color: white;
       border-radius: 0px;
@@ -344,13 +347,29 @@
     }
 
     .container {
-      margin-top: 10px;
-      display: block;
-
-
+      display: flex;
+      justify-content: center;
+      gap: 1.5%;
+      padding: 20px;
     }
 
-    .div1 {
+    .coluna-esquerda {
+      display: flex;
+      flex-direction: column;
+      width: 25%;
+      /*background-color: #FFD700;
+      /* Ajuste conforme necessário */
+    }
+
+    .coluna-direita {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      width: 40%;
+    }
+
+    .div1,
+    .div2 {
       border: 1px solid black;
       width: 450px;
       padding: 0px;
@@ -363,18 +382,32 @@
       text-align: center;
     }
 
-    .div2 {
+    .div3,
+    .div4 {
+      /*border: 1px solid black;*/
+      width: 450px;
+      padding: 0px;
+
+      /*box-sizing: border-box;*/
+      margin: auto;
+      margin-top: 0px;
+      /*margin-right: 0.5%;*/
+      border-radius: 30px;
+      text-align: center;
+    }
+
+    /*.div2 {
       border: 1px solid black;
       width: 450px;
       padding: 0px;
 
       /* box-sizing: border-box;*/
-      margin: auto;
+    /*margin: auto;
       margin-bottom: 15px;
       /* margin-left: 0.5%;*/
-      border-radius: 30px;
+    /*border-radius: 30px;
       text-align: center;
-    }
+    }*/
 
     /*h1 {
   background-image: url('/images/nelores.jpg');
@@ -438,6 +471,46 @@
       font-size: 40px;
       text-align: center;
     }
+
+    .controle-duplo {
+      display: flex;
+      gap: 4.5%;
+      /* espaço entre os blocos */
+      justify-content: flex-start;
+      /* ou center */
+    }
+
+    .controle-individual {
+      padding: 20px;
+      border: solid black 1px;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* centraliza texto e botão */
+    }
+
+    .desligado {
+      width: 160px;
+      height: 50px;
+      background-color: #de3c2f;
+      color: white;
+      border: 3px solid #ff9999;
+      /*padding: 10px 20px;*/
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .ligado {
+      height: 50px;
+      width: 160px;
+      background-color: green;
+      color: white;
+      border: 3px solid #3CB371;
+      /*padding: 10px 20px;*/
+      font-size: 16px;
+      cursor: pointer;
+    }
   </style>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
@@ -468,14 +541,13 @@
 <body>
 
   <h1>
-    <img src="/images/logo.png" width="200px" height="130px">
-
-    Monitoramento Ambiental em Compost Barn
-    <img src="/images/logo.png" width="200px" height="130px">
+    <img src="/images/temp1.png" width="80px" height="80px">
+    Monitoramento Ambiental<br><br>
+    em Compost Barn
+    <img src="/images/temp2_frio.png" width="80px" height="80px">
 
   </h1>
 
-  </script>
   </div>
 
   <!-- TradingView Widget BEGIN -->
@@ -514,7 +586,7 @@
               "title": "Ouro"
             }
           ],
-            "colorTheme": "dark",
+            "colorTheme": "light",
               "locale": "br",
                 "largeChartUrl": "",
                   "isTransparent": false,
@@ -529,228 +601,255 @@
 
 
   <div class="container">
-
-
-    <div class="div1">
-      <p>Temperatura</p>
-      <div id="grafico"></div>
-    </div>
-    <div class="div3">
-      <Button></Button>
-    </div>
-    <div class="div2">
-      <p>Umidade</p>
-      <div id="graficoUmidade"></div>
+    <div class="coluna-esquerda">
+      <div class="div1">
+        <p>Temperatura</p>
+        <div id="grafico"></div>
+      </div>
+      <div class="div2">
+        <p>Umidade</p>
+        <div id="graficoUmidade"></div>
+      </div>
     </div>
 
-  </div>
+    <div class="coluna-direita">
+      <div class="controle-duplo">
+        <div class="controle-individual">
+          <p>Sistema de Ventilação</p>
+          <button id="botaoVentilacao" class="desligado">DESLIGADO</button>
+        </div>
+        <div class="controle-individual">
+          <p>Sistema de Iluminação</p>
+          <button id="botaoLampada" class="desligado">DESLIGADO</button>
+        </div>
+      </div>
+
+
+    </div>
 
 
 
+    <script>
+      function alternarEstado(botao, nome) {
+        const ligado = botao.classList.contains('ligado');
+        botao.classList.toggle('ligado');
+        botao.classList.toggle('desligado');
+        botao.textContent = ligado ? 'DESLIGADO' : `LIGADO`;
+      }
 
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script>
-    // Chama a função atualizarTemperatura a cada 10 minutos
-    setInterval(atualizarTemperatura, 10 * 60 * 1000);
+      document.getElementById('botaoVentilacao').addEventListener('click', function () {
+        alternarEstado(this, 'Ventilação');
+      });
 
-    function atualizarTemperatura() {
-      const apiKey = '9e5e8c6d3873cae24b71872aec659579';
-      const cidade = 'Guaratinguetá';
-      const LIMITE_TEMPERATURA = 35.0;
-      const emailUsuario = 'temp.compost@gmail.com'; // Substitua pelo e-mail real do usuário
+      document.getElementById('botaoLampada').addEventListener('click', function () {
+        alternarEstado(this, 'Iluminação');
+      });
 
-      fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cidade + '&appid=' + apiKey)
-        .then(response => response.json())
-        .then(data => {
-          const umidade = data.main.humidity;
-          const temperaturaK = data.main.temp;
-          const temperaturaC = temperaturaK - 273.15;
-          const temperaturaCorrigida = temperaturaC - 0.5;
+    </script>
 
-          // Atualiza os gráficos
-          atualizarGrafico(temperaturaC);
-          atualizarGraficoUmidade(umidade);
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+      // Chama a função atualizarTemperatura a cada 10 minutos
+      setInterval(atualizarTemperatura, 10 * 60 * 1000);
 
-          // Verifica se a temperatura ultrapassou o limite
-          if (temperaturaCorrigida >= LIMITE_TEMPERATURA) {
-            fetch('animal/api/enviar-alerta', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                email: emailUsuario,
-                temperatura: temperaturaCorrigida.toFixed(1),
-                cidade: cidade
+      function atualizarTemperatura() {
+        const apiKey = '9e5e8c6d3873cae24b71872aec659579';
+        const cidade = 'Guaratinguetá';
+        const LIMITE_TEMPERATURA = 35.0;
+        const emailUsuario = 'temp.compost@gmail.com'; // Substitua pelo e-mail real do usuário
+
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cidade + '&appid=' + apiKey)
+          .then(response => response.json())
+          .then(data => {
+            const umidade = data.main.humidity;
+            const temperaturaK = data.main.temp;
+            const temperaturaC = temperaturaK - 273.15;
+            const temperaturaCorrigida = temperaturaC - 0.5;
+
+            // Atualiza os gráficos
+            atualizarGrafico(temperaturaC);
+            atualizarGraficoUmidade(umidade);
+
+            // Verifica se a temperatura ultrapassou o limite
+            if (temperaturaCorrigida >= LIMITE_TEMPERATURA) {
+              fetch('animal/api/enviar-alerta', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  email: emailUsuario,
+                  temperatura: temperaturaCorrigida.toFixed(1),
+                  cidade: cidade
+                })
               })
-            })
-              .then(response => {
-                if (response.ok) {
-                  console.log('🚨 Alerta de temperatura enviado com sucesso!');
-                } else {
-                  console.error('❌ Falha ao enviar alerta.');
-                }
-              })
-              .catch(error => {
-                console.error('Erro ao enviar alerta:', error);
-              });
-          }
-        })
-        .catch(error => console.error('Erro ao buscar temperatura:', error));
-    }
+                .then(response => {
+                  if (response.ok) {
+                    console.log('🚨 Alerta de temperatura enviado com sucesso!');
+                  } else {
+                    console.error('❌ Falha ao enviar alerta.');
+                  }
+                })
+                .catch(error => {
+                  console.error('Erro ao enviar alerta:', error);
+                });
+            }
+          })
+          .catch(error => console.error('Erro ao buscar temperatura:', error));
+      }
 
-    /*document.getElementById('temperatura').addEventListener('click', atualizarTemperatura);*/
-    document.addEventListener('DOMContentLoaded', (event) => {
-      atualizarTemperatura();
-    });
-
-
-    // Cria um gráfico de meio círculo com D3.js
-    var svg = d3.select("#grafico")
-      .append("svg")
-      .attr("width", 400)
-      .attr("height", 240);
-
-    var g = svg.append("g")
-      .attr("transform", "translate(160,160)");
-
-    var arc = d3.arc()
-      .innerRadius(116)
-      .outerRadius(120)
-      .startAngle(-Math.PI / 2)
-      .endAngle(Math.PI / 2);
-
-    g.append("path")
-      .attr("d", arc)
-      .attr("fill", "#ddd");
-    // Adiciona marcas de escala
-    g.append("text")
-      .attr("transform", "translate(-130,20)")
-      .text("0°C");
-
-    g.append("text")
-      .attr("transform", "translate(105,20)")
-      .text("50°C");
-
-    // Adiciona um texto para exibir a temperatura atual
-    var temperaturaTexto = g.append("text")
-      .attr("text-anchor", "middle")
-      .attr("dy", "-50") // Move o texto para cima
-      .style("font-size", "24px"); // Aumenta o tamanho do texto
+      /*document.getElementById('temperatura').addEventListener('click', atualizarTemperatura);*/
+      document.addEventListener('DOMContentLoaded', (event) => {
+        atualizarTemperatura();
+      });
 
 
+      // Cria um gráfico de meio círculo com D3.js
+      var svg = d3.select("#grafico")
+        .append("svg")
+        .attr("width", 400)
+        .attr("height", 240);
 
-    function atualizarGrafico(temperaturaC) {
-      var percent = temperaturaC / 50; // Converte a temperatura para uma porcentagem
-      var angle = percent * Math.PI; // Converte a porcentagem para um ângulo
+      var g = svg.append("g")
+        .attr("transform", "translate(160,160)");
 
-      var arcAtual = d3.arc()
-        .innerRadius(110)
-        .outerRadius(126)
+      var arc = d3.arc()
+        .innerRadius(116)
+        .outerRadius(120)
         .startAngle(-Math.PI / 2)
-        .endAngle(angle - Math.PI / 2)
-        .cornerRadius(20); // Adiciona um raio nas extremidades do arco
+        .endAngle(Math.PI / 2);
 
       g.append("path")
-        .attr("d", arcAtual)
-        .attr("fill", "#20B2AA");
+        .attr("d", arc)
+        .attr("fill", "#ddd");
+      // Adiciona marcas de escala
+      g.append("text")
+        .attr("transform", "translate(-130,20)")
+        .text("0°C");
 
-      // Atualiza o texto com a temperatura atual
-      temperaturaTexto.text((temperaturaC.toFixed(1) - 0.5) + "°C");
-    }
+      g.append("text")
+        .attr("transform", "translate(105,20)")
+        .text("50°C");
 
-    // Cria um gráfico de meio círculo com D3.js
-    var svg1 = d3.select("#graficoUmidade")
-      .append("svg")
-      .attr("width", 400)
-      .attr("height", 240);
-
-    var g1 = svg1.append("g")
-      .attr("transform", "translate(160,160)");
-
-    var arc = d3.arc()
-      .innerRadius(116)
-      .outerRadius(120)
-      .startAngle(-Math.PI / 2)
-      .endAngle(Math.PI / 2);
-
-    g1.append("path")
-      .attr("d", arc)
-      .attr("fill", "#ddd");
-    // Adiciona marcas de escala
-    g1.append("text")
-      .attr("transform", "translate(-130,20)")
-      .text("0");
-
-    g1.append("text")
-      .attr("transform", "translate(105,20)")
-      .text("100%");
-
-    // Adiciona um texto para exibir a temperatura atual
-    var umidadeTexto2 = g1.append("text")
-      .attr("text-anchor", "middle")
-      .attr("dy", "-50") // Move o texto para cima
-      .style("font-size", "24px"); // Aumenta o tamanho do texto
-
-    function atualizarGraficoUmidade(umidade) {
-      var percent = umidade / 100; // Converte a umidade para uma porcentagem
-      var angle = percent * Math.PI; // Converte a porcentagem para um ângulo
-
-      var arcAtual = d3.arc()
-        .innerRadius(110)
-        .outerRadius(126)
-        .startAngle(-Math.PI / 2)
-        .endAngle(angle - Math.PI / 2)
-        .cornerRadius(20); // Adiciona um raio nas extremidades do arco
-
-      g1.append("path")
-        .attr("d", arcAtual)
-        .attr("fill", "#20B2AA");
-
-      // Atualiza o texto com a temperatura atual
-      umidadeTexto2.text(((umidade).toFixed(1)) + "%");
-    }
+      // Adiciona um texto para exibir a temperatura atual
+      var temperaturaTexto = g.append("text")
+        .attr("text-anchor", "middle")
+        .attr("dy", "-50") // Move o texto para cima
+        .style("font-size", "24px"); // Aumenta o tamanho do texto
 
 
 
-
-
-    /*var temperaturaC; // A temperatura em Celsius
-
-    // Atualiza o gráfico com a temperatura atual
-    function atualizarGrafico(temperaturaC) {
+      function atualizarGrafico(temperaturaC) {
         var percent = temperaturaC / 50; // Converte a temperatura para uma porcentagem
         var angle = percent * Math.PI; // Converte a porcentagem para um ângulo
 
         var arcAtual = d3.arc()
-            .innerRadius(100)
-            .outerRadius(150)
-            .startAngle(-Math.PI / 2)
-            .endAngle(angle - Math.PI / 2);
+          .innerRadius(110)
+          .outerRadius(126)
+          .startAngle(-Math.PI / 2)
+          .endAngle(angle - Math.PI / 2)
+          .cornerRadius(20); // Adiciona um raio nas extremidades do arco
 
         g.append("path")
-            .attr("d", arcAtual)
-            .attr("fill", "orange");
-    }
+          .attr("d", arcAtual)
+          .attr("fill", "#20B2AA");
 
-    // Chama a função para atualizar o gráfico
-    atualizarGrafico(temperaturaC);*/
+        // Atualiza o texto com a temperatura atual
+        temperaturaTexto.text((temperaturaC.toFixed(1) - 0.5) + "°C");
+      }
 
-    /*Aumentar o tamanho da fonte (acessibilidade)
-    const aumentarBotao = document.getElementById('aumentarFonte');
-    const diminuirBotao = document.getElementById('diminuirFonte');
-    const meuTexto = document.getElementById('meuTexto');
+      // Cria um gráfico de meio círculo com D3.js
+      var svg1 = d3.select("#graficoUmidade")
+        .append("svg")
+        .attr("width", 400)
+        .attr("height", 240);
 
-    aumentarBotao.addEventListener('click', function () {
-      const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
-      const novoTamanho = parseFloat(tamanhoAtual) + 2; // Aumenta 2 pixels
-      meuTexto.style.fontSize = novoTamanho + 'px';
-    });
+      var g1 = svg1.append("g")
+        .attr("transform", "translate(160,160)");
 
-    diminuirBotao.addEventListener('click', function () {
-      const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
-      const novoTamanho = parseFloat(tamanhoAtual) - 2; // Diminui 2 pixels
-      meuTexto.style.fontSize = novoTamanho + 'px';
-    });*/
+      var arc = d3.arc()
+        .innerRadius(116)
+        .outerRadius(120)
+        .startAngle(-Math.PI / 2)
+        .endAngle(Math.PI / 2);
 
-  </script>
+      g1.append("path")
+        .attr("d", arc)
+        .attr("fill", "#ddd");
+      // Adiciona marcas de escala
+      g1.append("text")
+        .attr("transform", "translate(-130,20)")
+        .text("0");
+
+      g1.append("text")
+        .attr("transform", "translate(105,20)")
+        .text("100%");
+
+      // Adiciona um texto para exibir a temperatura atual
+      var umidadeTexto2 = g1.append("text")
+        .attr("text-anchor", "middle")
+        .attr("dy", "-50") // Move o texto para cima
+        .style("font-size", "24px"); // Aumenta o tamanho do texto
+
+      function atualizarGraficoUmidade(umidade) {
+        var percent = umidade / 100; // Converte a umidade para uma porcentagem
+        var angle = percent * Math.PI; // Converte a porcentagem para um ângulo
+
+        var arcAtual = d3.arc()
+          .innerRadius(110)
+          .outerRadius(126)
+          .startAngle(-Math.PI / 2)
+          .endAngle(angle - Math.PI / 2)
+          .cornerRadius(20); // Adiciona um raio nas extremidades do arco
+
+        g1.append("path")
+          .attr("d", arcAtual)
+          .attr("fill", "#20B2AA");
+
+        // Atualiza o texto com a temperatura atual
+        umidadeTexto2.text(((umidade).toFixed(1)) + "%");
+      }
+
+
+
+
+
+      /*var temperaturaC; // A temperatura em Celsius
+  
+      // Atualiza o gráfico com a temperatura atual
+      function atualizarGrafico(temperaturaC) {
+          var percent = temperaturaC / 50; // Converte a temperatura para uma porcentagem
+          var angle = percent * Math.PI; // Converte a porcentagem para um ângulo
+  
+          var arcAtual = d3.arc()
+              .innerRadius(100)
+              .outerRadius(150)
+              .startAngle(-Math.PI / 2)
+              .endAngle(angle - Math.PI / 2);
+  
+          g.append("path")
+              .attr("d", arcAtual)
+              .attr("fill", "orange");
+      }
+  
+      // Chama a função para atualizar o gráfico
+      atualizarGrafico(temperaturaC);*/
+
+      /*Aumentar o tamanho da fonte (acessibilidade)
+      const aumentarBotao = document.getElementById('aumentarFonte');
+      const diminuirBotao = document.getElementById('diminuirFonte');
+      const meuTexto = document.getElementById('meuTexto');
+  
+      aumentarBotao.addEventListener('click', function () {
+        const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
+        const novoTamanho = parseFloat(tamanhoAtual) + 2; // Aumenta 2 pixels
+        meuTexto.style.fontSize = novoTamanho + 'px';
+      });
+  
+      diminuirBotao.addEventListener('click', function () {
+        const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
+        const novoTamanho = parseFloat(tamanhoAtual) - 2; // Diminui 2 pixels
+        meuTexto.style.fontSize = novoTamanho + 'px';
+      });*/
+
+    </script>
