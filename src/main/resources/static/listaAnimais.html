@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Controle de Gado</title>
+
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 20
+    }
+
+    #area-menu {
+      background-color: #fff;
+      /*text-align: center;*/
+      clear: both;
+      color: #2F4F4F;
+      font-size: 18px;
+      line-height: 0px;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    a {
+      text-decoration: none;
+      padding: 10px;
+
+    }
+
+    a:link,
+    a:visited {
+      color: #2F4F4F;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #0318017e;
+      background: white;
+      text-decoration: none;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      grid-gap: 10px;
+      /* Simply adjust this value !*/
+      grid-template-columns: repeat(2, 1fr);
+      /* OR grid-template-columns: 1fr 1fr 1fr;*/
+      grid-auto-rows: 1fr;
+      justify-content: center;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
+    .container>div:nth-child(1) {
+      /*background-color: #006400;*/
+      border-radius: 10px;
+      width: 30%;
+      padding-bottom: 20px;
+      margin-top: 0px;
+
+
+    }
+
+    .container>div:nth-child(2) {
+      width: 50%;
+      padding-bottom: 20px;
+      margin-right: 0.5%;
+      margin-left: 0;
+      margin-top: 0px;
+      text-align: center;
+    }
+
+
+
+    .container>div {
+      height: 100%;
+    }
+
+    #listaAnimais {
+      text-align: center;
+      width: 45%;
+      padding-bottom: 20px;
+
+    }
+
+    #analise,
+    #analise2,
+    #analise3,
+    #analise4,
+    #analise5,
+    #analise6 {
+      width: 40%;
+      text-align: center;
+      margin: auto;
+      margin-bottom: 15px;
+    }
+
+
+
+    #disponiveis {
+      border: 1px solid black;
+      width: 100%;
+      background-color: white;
+      text-align: center;
+      margin: auto;
+      display: none;
+      /* esconde a tabela por padrão */
+    }
+
+    #disponiveis.visible {
+      display: block;
+      /* mostra a tabela quando a classe "visible" é adicionada */
+    }
+
+
+
+
+
+
+    h1 {
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      background-color: #0079C2;
+      text-align: center;
+      clear: both;
+      color: white;
+      font-size: 38px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      line-height: 20px;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    h1 img {
+      margin-top: 10px;
+      margin-left: 5%;
+      margin-right: 5%;
+      /*display: block;*/
+      /* torna a imagem um elemento de bloco */
+      /*margin: auto;*/
+      /* centraliza a imagem horizontalmente */
+      margin-bottom: 10px;
+      /* adiciona uma margem inferior para separar a imagem do texto */
+    }
+
+    /*h1 div {
+      display: block;
+    }*/
+
+    h2 {
+      background-color: #0079C2;
+
+      text-align: center;
+      color: white;
+      border-radius: 0px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+
+
+    }
+
+    h3 {
+      background-color: white;
+      text-align: center;
+      color: #348344;
+      font-size: 0px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      line-height: 0px;
+      margin-bottom: 20px;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    h4 {
+      background-color: #DCDCDC;
+      line-height: 40px;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    label,
+    input [type="date"] {
+      display: block;
+      margin-bottom: 0px;
+      text-align: center;
+      padding: 0px;
+      color: white;
+    }
+
+    #dataConsulta {
+      border-radius: 6px;
+    }
+
+
+    form [type="number"],
+    form [type="text"],
+    form [type="date"],
+    select {
+      display: block;
+      margin: auto;
+      margin-bottom: 15px;
+      width: 55%;
+      border-radius: 6px;
+    }
+
+
+
+
+    button {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      background: white;
+      border-radius: 8px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    #btnConsultar {
+      margin-top: 15px;
+
+    }
+
+    .btn_edit {
+      background-color: #FFD700;
+      color: black;
+      margin-right: 4%;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      margin-top: 3%;
+      margin-bottom: 3%;
+    }
+
+    .btn_delete {
+      background-color: #FF4500;
+      color: white;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+
+
+    table {
+      text-align: center;
+      border-collapse: collapse;
+    }
+
+
+    table th,
+    table tr,
+    table td {
+      border: 1px solid black;
+
+      text-align: center;
+      margin: auto;
+
+    }
+
+    #linha1 {
+      color: white;
+      background-color: #0079C2;
+      padding: 3px;
+    }
+
+    .linha2 {
+      background-color: #EFEDED;
+      padding: 3px;
+    }
+
+    th {
+      background-color: #D3D3D3;
+
+    }
+
+    tr:nth-child(even) {
+      background: #EFEDED;
+    }
+
+    .filtro {
+      width: 100%;
+
+    }
+
+
+    #txtColuna1 {
+      width: 90%;
+    }
+
+    #txtColuna2 {
+      width: 90%;
+    }
+
+    #txtColuna3 {
+      width: 90%;
+    }
+
+    #txtColuna4 {
+      width: 90%;
+    }
+
+    #txtColuna5 {
+      width: 90%;
+    }
+
+    #txtColuna6 {
+      width: 90%;
+    }
+
+    h5 {
+      background-color: #223b48;
+      border: 1px solid black;
+      border-radius: 10px;
+      vertical-align: center;
+      color: white;
+      width: 100%;
+      text-align: center;
+      text-align: center;
+      font-size: 25px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      line-height: 25px;
+      margin-bottom: 5px;
+    }
+
+    .ticker {
+      line-height: 15px;
+      overflow: hidden;
+      display: flex;
+      width: 100vw;
+    }
+
+    .ticker__list {
+      display: flex;
+      margin-top: 0px;
+      animation: ticker 50s infinite linear;
+      text-align: center;
+    }
+
+    .ticker:hover .ticker__list {
+      animation-play-state: infinite linear;
+    }
+
+    .ticker__item {
+      border: 1px solid #e9e9e9;
+      margin-right: 0px;
+      background-color: #fdfdfd;
+      width: 300px
+    }
+
+    @keyframes ticker {
+      100% {
+        transform: translateX(-100vw);
+        /*try changing this to -100vw*/
+      }
+    }
+
+    span {
+      color: #424242;
+    }
+
+    #ww_6170df6b3e605 {
+      text-align: center;
+    }
+
+    #cotacao {
+      text-align: center;
+    }
+
+    #cotacoes {
+      border: 0px;
+    }
+
+    h7 {
+      height: 40px;
+      width: 95px;
+      background: #223b48;
+      color: #223b48;
+      position: absolute;
+    }
+
+    h8 {
+
+      height: 40px;
+      width: 95px;
+      background: #223b48;
+      color: #223b48;
+      position: absolute;
+      right: 0;
+    }
+
+    h9 {
+      margin-top: 0px;
+      position: absolute;
+      right: 15%;
+      bottom: 85%;
+      font-size: 21px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 1.5%;
+      padding: 20px;
+    }
+
+    .coluna-esquerda {
+      display: flex;
+      flex-direction: column;
+      width: 25%;
+      margin-right: 1.5%;
+      /*background-color: #FFD700;
+      /* Ajuste conforme necessário */
+    }
+
+    .coluna-direita {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      width: 40%;
+    }
+
+    .div1,
+    .div2 {
+      border: 1px solid black;
+      width: 450px;
+      padding: 0px;
+
+      /*box-sizing: border-box;*/
+      margin: auto;
+      margin-bottom: 15px;
+      /*margin-right: 0.5%;*/
+      border-radius: 30px;
+      text-align: center;
+    }
+
+    .div3,
+    .div4 {
+      /*border: 1px solid black;*/
+      width: 450px;
+      padding: 0px;
+
+      /*box-sizing: border-box;*/
+      margin: auto;
+      margin-top: 0px;
+      /*margin-right: 0.5%;*/
+      border-radius: 30px;
+      text-align: center;
+    }
+
+    /*.div2 {
+      border: 1px solid black;
+      width: 450px;
+      padding: 0px;
+
+      /* box-sizing: border-box;*/
+    /*margin: auto;
+      margin-bottom: 15px;
+      /* margin-left: 0.5%;*/
+    /*border-radius: 30px;
+      text-align: center;
+    }*/
+
+    /*h1 {
+  background-image: url('/images/nelores.jpg');
+  background-size: cover;
+  }*/
+
+    #meuTexto {
+      margin-top: 0px;
+      font-size: 19px;
+      /* Tamanho inicial da fonte */
+    }
+
+    #aumentarFonte {
+      color: white;
+      font-size: 17px;
+      bottom: 84%;
+      border: 0px;
+      background-color: #006400;
+      ;
+      position: absolute;
+      right: 12%;
+    }
+
+    #diminuirFonte {
+      color: white;
+      font-size: 17px;
+      bottom: 84%;
+      border: 0px;
+      background-color: #006400;
+      position: absolute;
+      right: 10%;
+    }
+
+    br {
+      margin-top: 15px;
+    }
+
+    #grafico {
+
+
+      /*margin-left: auto;*/
+      text-align: center;
+      margin-left: 16%;
+    }
+
+    #graficoUmidade {
+
+      /*margin-left: auto;*/
+      text-align: center;
+      margin-left: 16%;
+    }
+
+    p {
+      margin-top: 5%;
+      text-align: center;
+      font-size: 28px;
+    }
+
+    #monitoramento {
+      padding: 20px;
+      font-size: 40px;
+      text-align: center;
+    }
+
+    .controle-duplo {
+      display: flex;
+      gap: 4.5%;
+      /* espaço entre os blocos */
+      justify-content: flex-start;
+      /* ou center */
+    }
+
+    .controle-individual {
+      padding-right: 20px;
+      padding-left: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border: solid black 1px;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* centraliza texto e botão */
+    }
+
+    .desligado {
+      width: 160px;
+      height: 50px;
+      background-color: #de3c2f;
+      color: white;
+      border: 3px solid #ff9999;
+      /*padding: 10px 20px;*/
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .ligado {
+      height: 50px;
+      width: 160px;
+      background-color: green;
+      color: white;
+      border: 3px solid #3CB371;
+      /*padding: 10px 20px;*/
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #chart_div {}
+  </style>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script>
+    $(function () {
+      $("#tabelaAnimais input").keyup(function () {
+        var index = $(this).parent().index();
+        var nth = "#tabelaAnimais td:nth-child(" + (index + 1).toString() + ")";
+        var valor = $(this).val().toUpperCase();
+        $("#tabelaAnimais tbody tr").show();
+        $(nth).each(function () {
+          var texto = $(this).text().toUpperCase();
+          if (texto.substring(0, valor.length) !== valor) {
+            $(this).parent().hide();
+          }
+        });
+      });
+
+      $("#tabelaAnimais input").blur(function () {
+        $(this).val("");
+      });
+    });
+
+  </script>
+
+
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+    google.charts.setOnLoadCallback(drawStuff);
+
+    async function drawStuff() {
+      const data = await fetchAnimalData();
+      var button = document.getElementById('change-chart');
+      var chartDiv = document.getElementById('chart_div');
+
+      var chartData = google.visualization.arrayToDataTable(data);
+      var materialOptions = {
+        width: '100%',
+        chart: {
+          title: 'Médias diárias de Temperatura e Umidade',
+          subtitle: ''
+        },
+        series: {
+          0: { axis: 'temperatura' },
+          1: { axis: 'umidade' }
+        },
+        axes: {
+          y: {
+            temperatura: { label: 'Temperatura (°C)' },
+            umidade: { side: 'right', label: 'Umidade (%)' }
+          }
+        }
+      };
+
+      var classicOptions = {
+        width: '100%',
+        series: {
+          0: { targetAxisIndex: 0 },
+          1: { targetAxisIndex: 1 }
+        },
+        title: 'Médias diárias de Temperatura e Umidade',
+        vAxes: {
+          0: { title: 'Temperatura (°C)' },
+          1: { title: 'Umidade (%)' }
+        }
+      };
+
+      function drawMaterialChart() {
+        var materialChart = new google.charts.Bar(chartDiv);
+        materialChart.draw(chartData, google.charts.Bar.convertOptions(materialOptions));
+        button.innerText = 'Mudar para Classic';
+        button.onclick = drawClassicChart;
+      }
+
+      function drawClassicChart() {
+        var classicChart = new google.visualization.ColumnChart(chartDiv);
+        classicChart.draw(chartData, classicOptions);
+        button.innerText = 'Mudar para Material';
+        button.onclick = drawMaterialChart;
+      }
+
+      drawClassicChart();
+    }
+
+    async function fetchAnimalData() {
+      try {
+        const response = await fetch('/animal/dados');
+        const data = await response.json();
+        console.log('Dados recebidos:', data); // Verifique a estrutura dos dados
+
+        // Agregar os dados por numeroProdutor
+        const aggregatedData = data.reduce((acc, animal) => {
+          if (!acc[animal.numeroProdutor]) {
+            acc[animal.numeroProdutor] = { sumPropriedade: 0, sumIdentificacao: 0, count: 0 };
+          }
+          acc[animal.numeroProdutor].sumPropriedade += parseFloat(animal.numeroPropriedade);
+          acc[animal.numeroProdutor].sumIdentificacao += parseFloat(animal.numeroIdentificacao);
+          acc[animal.numeroProdutor].count += 1;
+          return acc;
+        }, {});
+
+        // Calcular as médias e preparar os dados para o gráfico
+        const chartData = [['Data', 'temperatura', 'umidade']];
+        for (const numeroProdutor in aggregatedData) {
+          const avgPropriedade = aggregatedData[numeroProdutor].sumPropriedade / aggregatedData[numeroProdutor].count;
+          const avgIdentificacao = aggregatedData[numeroProdutor].sumIdentificacao / aggregatedData[numeroProdutor].count;
+          chartData.push([numeroProdutor, avgPropriedade, avgIdentificacao]);
+        }
+
+        return chartData;
+      } catch (error) {
+        console.error('Erro ao processar os dados dos animais:', error);
+        return [];
+      }
+    }
+  </script>
+
+
+</head>
+
+<body>
+
+  <h1>
+    <img src="/images/temp1.png" width="80px" height="80px">
+    Monitoramento Ambiental<br><br>
+    em Compost Barn
+    <img src="/images/temp2_frio.png" width="80px" height="80px">
+
+  </h1>
+
+  <h3>
+    <div id="area-menu">
+      <p id="meuTexto"><a href="index.html">Temperatura e Umidade em Tempo Real (IOT)</a>
+
+        <a href="listaAnimais.html">Análise de dados IOT</a>
+      </p>
+    </div>
+  </h3>
+
+  </div>
+
+  <!-- TradingView Widget BEGIN -->
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+      async>
+        {
+          "symbols": [
+            {
+              "proName": "BINANCE:BTCBRL",
+              "title": "Bitcoin"
+            },
+            {
+              "proName": "BINANCE:ETHBRL",
+              "title": "Ethereum"
+            },
+            {
+              "proName": "EIGHTCAP:USDBRL",
+              "title": "Dollar"
+            },
+            {
+              "proName": "FX_IDC:EURBRL",
+              "title": "Euro"
+            },
+            {
+              "proName": "FX_IDC:GBPBRL",
+              "title": "Libra"
+            },
+            {
+              "proName": "FX_IDC:ARSBRL",
+              "title": "Peso Argentino"
+            },
+            {
+              "proName": "OANDA:XAUUSD",
+              "title": "Ouro"
+            }
+          ],
+            "colorTheme": "light",
+              "locale": "br",
+                "largeChartUrl": "",
+                  "isTransparent": false,
+                    "showSymbolLogo": true,
+                      "displayMode": "adaptive"
+        }
+      </script>
+  </div>
+  <!-- TradingView Widget END -->
+  <h2>ANÁLISE DE DADOS TEMPERATURA E UMIDADE</h2>
+
+  <div class="container">
+    <div id="listaAnimais">
+      <div id="divConteudo">
+        <table id="tabelaAnimais">
+          <thead>
+            <tr>
+              <th style="width: 14%;">Data</th>
+              <th style="width: 14%;">Hora</th>
+              <th style="width: 14%;">Temperatura</th>
+              <th style="width: 14%;">Umidade</th>
+
+            </tr>
+            <tr>
+              <th><input type="text" id="txtColuna1" /></th>
+              <th><input type="text" id="txtColuna2" /></th>
+              <th><input type="text" id="txtColuna3" /></th>
+              <th><input type="text" id="txtColuna1" /></th>
+
+            </tr>
+          </thead>
+          <tbody>
+          <tbody>
+            <!-- Aqui serão adicionadas as linhas da tabela -->
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+    <div>
+
+      <table id="analise">
+
+        <tr id="linha1">
+          <th id="linha1" style="width: 14%;">TEMPERATURA MÉDIA</th>
+        </tr>
+        <tr id="linha2">
+          <th class="linha2" id="mediaTemperatura"></th>
+        </tr>
+      </table>
+
+      <table id="analise2">
+
+        <tr id="linha1">
+          <th id="linha1" style="width: 14%;">UMIDADE MÉDIA</th>
+        </tr>
+        <tr id="linha2">
+          <th class="linha2" id="mediaUmidade"></th>
+        </tr>
+      </table>
+
+      <table id="analise3">
+
+        <tr id="linha1">
+          <th id="linha1" style="width: 14%;">TEMPERATURA MÁXIMA</th>
+        </tr>
+        <tr id="linha2">
+          <th class="linha2" id="temperaturaMaxima"></th>
+        </tr>
+      </table>
+
+      <table id="analise4">
+
+        <tr id="linha1">
+          <th id="linha1" style="width: 14%;">UMIDADE MÁXIMA</th>
+        </tr>
+        <tr id="linha2">
+          <th class="linha2" id="umidadeMaxima"></th>
+        </tr>
+      </table>
+
+      <table id="analise5">
+
+        <tr id="linha1">
+          <th id="linha1" style="width: 14%;">TEMPERATURA MÍNIMA</th>
+        </tr>
+        <tr id="linha2">
+          <th class="linha2" id="temperaturaMinima"></th>
+        </tr>
+      </table>
+
+      <table id="analise6">
+
+        <tr id="linha1">
+          <th id="linha1" style="width: 14%;">UMIDADE MÍNIMA</th>
+        </tr>
+        <tr id="linha2">
+          <th class="linha2" id="umidadeMinima"></th>
+        </tr>
+      </table>
+
+
+      <div id="chart_div" style="width: 100%; height: 500px; text-align:center"></div>
+      <button id="change-chart" style="text-align:center">Change to Classic</button>
+      <br><br>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <script>
+    /*const aumentarBotao = document.getElementById('aumentarFonte');
+    const diminuirBotao = document.getElementById('diminuirFonte');
+    const meuTexto = document.getElementById('meuTexto');
+
+    aumentarBotao.addEventListener('click', function () {
+      const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
+      const novoTamanho = parseFloat(tamanhoAtual) + 2; // Aumenta 2 pixels
+      meuTexto.style.fontSize = novoTamanho + 'px';
+    });
+
+    diminuirBotao.addEventListener('click', function () {
+      const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
+      const novoTamanho = parseFloat(tamanhoAtual) - 2; // Diminui 2 pixels
+      meuTexto.style.fontSize = novoTamanho + 'px';
+    });*/
+
+
+    const formAnimal = document.querySelector("#form-animal");
+    const btnConsultar = document.querySelector("#btnConsultar");
+    const tabelaAnimais = document.querySelector("#tabelaAnimais");
+    const qtdCabecas = document.querySelector("#qtdCabeças");
+    const qtdVitelos = document.querySelector("#qtdVitelos");
+    const qtdSuperPrecoces = document.querySelector("#qtdSuperPrecoces");
+    const qtdPrecoces = document.querySelector("#qtdPrecoces");
+    const qtdNovilhos = document.querySelector("#qtdNovilhos");
+    const qtdBois = document.querySelector("#qtdBois");
+    const qtdTouros = document.querySelector("#qtdTouros");
+
+
+
+    async function obterMediaTemperatura() {
+      try {
+        const response = await fetch('/animal/temperatura/media');
+        if (!response.ok) {
+          throw new Error('Erro ao buscar a média das temperaturas');
+        }
+        const media = await response.json();
+        document.getElementById('mediaTemperatura').textContent = ` ${media.toFixed(1)} °C`;
+      } catch (error) {
+        console.error('Erro:', error);
+      }
+    }
+
+    async function obterTemperaturaMaxima() {
+      try {
+        const response = await fetch('/animal/temperatura/maxima');
+        if (!response.ok) {
+          throw new Error('Erro ao buscar a média das temperaturas');
+        }
+        const temperaturaMaxima = await response.json();
+        document.getElementById('temperaturaMaxima').textContent = ` ${temperaturaMaxima.toFixed(1)} °C`;
+      } catch (error) {
+        console.error('Erro:', error);
+      }
+    }
+
+    async function obterTemperaturaMinima() {
+      try {
+        const response = await fetch('/animal/temperatura/minima');
+        if (!response.ok) {
+          throw new Error('Erro ao buscar a média das temperaturas');
+        }
+        const temperaturaMinima = await response.json();
+        document.getElementById('temperaturaMinima').textContent = ` ${temperaturaMinima.toFixed(1)} °C`;
+      } catch (error) {
+        console.error('Erro:', error);
+      }
+    }
+
+    async function obterMediaUmidade() {
+      try {
+        const response = await fetch('/animal/umidade/media');
+        if (!response.ok) {
+          throw new Error('Erro ao buscar a média das temperaturas');
+        }
+        const mediaUmidade = await response.json();
+        document.getElementById('mediaUmidade').textContent = ` ${mediaUmidade.toFixed(1)} %`;
+      } catch (error) {
+        console.error('Erro:', error);
+      }
+    }
+
+    async function obterUmidadeMaxima() {
+      try {
+        const response = await fetch('/animal/umidade/maxima');
+        if (!response.ok) {
+          throw new Error('Erro ao buscar a média das temperaturas');
+        }
+        const umidadeMaxima = await response.json();
+        document.getElementById('umidadeMaxima').textContent = ` ${umidadeMaxima.toFixed(1)} %`;
+      } catch (error) {
+        console.error('Erro:', error);
+      }
+    }
+
+    async function obterUmidadeMinima() {
+      try {
+        const response = await fetch('/animal/umidade/minima');
+        if (!response.ok) {
+          throw new Error('Erro ao buscar a média das temperaturas');
+        }
+        const umidadeMinima = await response.json();
+        document.getElementById('umidadeMinima').textContent = ` ${umidadeMinima.toFixed(1)} %`;
+      } catch (error) {
+        console.error('Erro:', error);
+      }
+    }
+
+
+    // Chama a função para buscar a média quando a página é carregada
+
+
+    /*btnConsultar.addEventListener("click", () => {
+      const dataConsulta = document.querySelector("#dataConsulta").value;
+    });*/
+    // Chama a função consultarTotalAnimais quando a página carregar
+
+
+    // Função para consultar o total de animais com paginação manual
+    async function consultarTotalAnimais() {
+      let size = 500;
+      let page = 0;
+      let allData = [];
+      let hasMore = true;
+
+      // Paginação manual para buscar todos os dados
+      while (hasMore) {
+        const response = await fetch(`/animal/cabeças-de-gado?size=${size}&page=${page}`);
+        const data = await response.json();
+
+        console.log('Dados recebidos:', data); // Verifica os dados recebidos
+
+        // Concatena os dados obtidos
+        allData = allData.concat(data.content);
+
+        // Verifica se há mais dados para buscar
+        hasMore = data.content.length === size;
+        page++;
+      }
+
+      // Preenche a tabela com todos os dados
+      preencherTabela(allData);
+    }
+
+    // Objeto para armazenar a ordenação da tabela
+    let ordenacao = {
+      coluna: null,
+      ordem: null
+    };
+
+    // Função para preencher a tabela com os dados dos animais
+    function preencherTabela(animais) {
+      const tabela = document.getElementById('tabelaAnimais');
+      const tbody = tabela.querySelector('tbody');
+      const ths = tabela.querySelectorAll('th');
+      const filtroRow = document.getElementById('filtroRow');
+      tbody.innerHTML = ''; // Limpa a tabela
+
+      // Preenche a tabela com os animais
+      animais.forEach(animal => {
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+  <td data-coluna="numeroProdutor">${animal.numeroProdutor}</td>
+  <td data-coluna="nomeAnimal">${animal.cpfProdutor}</td>
+  <td data-coluna="numeroPropriedade">${animal.numeroPropriedade}°C</td>
+  <td data-coluna="numeroIdentificacao">${animal.numeroIdentificacao}%</td>
+  `;
+        tbody.appendChild(tr);
+      });
+
+    }
+
+    // Função para carregar ambas as funcionalidades ao carregar a página
+    window.onload = () => {
+      obterMediaTemperatura();
+      consultarTotalAnimais();
+      obterMediaUmidade();
+      obterTemperaturaMaxima();
+      obterUmidadeMaxima();
+      obterTemperaturaMinima();
+      obterUmidadeMinima();
+    };
+
+    // Adiciona os campos de filtro
+
+
+
+    // Adiciona os listeners de eventos aos títulos das colunas
+    /*const tabela = document.getElementById('tabelaAnimais');
+    const ths = tabela.querySelectorAll('th');
+    const filtroRow = document.getElementById('filtroRow');
+    ths.forEach(th => {
+      th.addEventListener('click', () => {
+        const coluna = th.dataset.coluna;
+        const ascendente = th.classList.contains('asc');
+    
+        // Remove todas as setas de ordenação
+        ths.forEach(th => {
+          th.classList.remove('asc', 'desc');
+        });
+    
+        if (ascendente) {
+          th.classList.add('desc');
+          ordenarTabela(coluna, false);
+        } else {
+          th.classList.add('asc');
+          ordenarTabela(coluna, true);
+        }
+      });
+    });*/
+
+    /*function ordenarTabela(coluna) {
+      const tbody = document.querySelector('tbody');
+      const linhas = Array.from(tbody.querySelectorAll('tr'));
+      const tipo = coluna.dataset.tipo;
+      const indiceColuna = coluna.cellIndex;
+    
+      const comparar = (indexA, indexB) => {
+        const valorA = indexA.children[indiceColuna].textContent.trim();
+        const valorB = indexB.children[indiceColuna].textContent.trim();
+    
+        if (tipo === 'string') {
+          return valorA.localeCompare(valorB, undefined, { numeric: true, sensitivity: 'base' });
+        } else if (tipo === 'number') {
+          return valorA - valorB;
+        } else if (tipo === 'date') {
+          return new Date(valorA.split('/').reverse().join('-')) - new Date(valorB.split('/').reverse().join('-'));
+        }
+      };
+    
+      const direcao = coluna.dataset.ordenacao === 'asc' ? -1 : 1;
+      linhas.sort((linhaA, linhaB) => direcao * comparar(linhaA, linhaB));
+      linhas.forEach(linha => tbody.appendChild(linha));
+    
+      // Altera a seta de ordenação
+      const setas = document.querySelectorAll('.seta');
+      setas.forEach(seta => seta.classList.remove('asc', 'desc'));
+      coluna.dataset.ordenacao = coluna.dataset.ordenacao === 'asc' ? 'desc' : 'asc';
+      const seta = coluna.querySelector('.seta');
+      seta.classList.toggle('asc', coluna.dataset.ordenacao === 'asc');
+      seta.classList.toggle('desc', coluna.dataset.ordenacao === 'desc');
+    }
+    */
+
+    function editarAnimal() {
+      // Obtenha os valores dos campos do formulário
+      var numeroProdutor = document.getElementById('campoNumeroProdutor').value;
+      var nomeAnimal = document.getElementById('campoNomeAnimal').value;
+      var dataNascimento = document.getElementById('campoDataNascimento').value;
+      var peso = document.getElementById('campoPeso').value;
+      var numeroPropriedade = document.getElementById('campoNumeroPropriedade').value;
+
+      // Construa o objeto de dados a ser enviado no corpo da requisição
+      var animalData = {
+        numeroProdutor: numeroProdutor,
+        nomeAnimal: nomeAnimal,
+        dataNascimento: dataNascimento,
+        peso: peso,
+        numeroPropriedade: numeroPropriedade
+      };
+
+      // Envie a requisição PUT para o endpoint
+      fetch('animal/editar', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(animalData)
+      })
+        .then(function (response) {
+          // Verifique a resposta da requisição
+          if (response.ok) {
+            // Faça algo se a requisição for bem-sucedida
+            console.log('Animal editado com sucesso!');
+          } else {
+            // Faça algo se a requisição falhar
+            console.log('Erro ao editar animal');
+          }
+        })
+        .catch(function (error) {
+          console.log('Erro na requisição:', error);
+        });
+    }
+
+    // Função para filtrar os dados da tabela
+    function filtrarTabela() {
+      const inputFilters = document.querySelectorAll('.filtro');
+      const tabela = document.getElementById('tabelaAnimais');
+      const tbody = tabela.querySelector('tbody');
+      const rows = tbody.querySelectorAll('tr');
+
+      rows.forEach(row => {
+        let exibeRow = true;
+
+        // Verifica cada coluna da linha
+        row.querySelectorAll('th').forEach((cell, index) => {
+          const filtro = inputFilters[index].value.toLowerCase();
+          const texto = cell.textContent.toLowerCase();
+
+          if (filtro && texto.indexOf(filtro) === -1) {
+            exibeRow = false;
+
+          }
+        });
+
+        // Exibe ou oculta a linha com base no filtro
+        row.style.display = exibeRow ? 'table-row' : 'none';
+      });
+    }
+
+    // Adiciona o evento de escuta para os campos de filtro
+    const inputFilters = document.querySelectorAll('.filtro');
+    inputFilters.forEach(input => {
+      input.addEventListener('input', filtrarTabela);
+    });
+
+    // Função para salvar as alterações feitas no animal editado
+    function salvarEdicao() {
+      // Obtenha os novos valores dos campos do formulário de edição
+      const novoNumeroProdutor = document.getElementById('campoNumeroProdutor').value;
+      const novoNomeAnimal = document.getElementById('campoNomeAnimal').value;
+      const novaDataNascimento = document.getElementById('campoDataNascimento').value;
+      const novoPeso = document.getElementById('campoPeso').value;
+      const novoNumeroPropriedade = document.getElementById('campoNumeroPropriedade').value;
+
+      // Faça algo com os novos valores, como enviar uma solicitação de atualização ao servidor
+
+      // Exemplo: exiba os novos valores no console
+      console.log('Novo Número do Produtor:', novoNumeroProdutor);
+      console.log('Novo Nome do Animal:', novoNomeAnimal);
+      console.log('Nova Data de Nascimento:', novaDataNascimento);
+      console.log('Novo Peso:', novoPeso);
+      console.log('Novo Número da Propriedade:', novoNumeroPropriedade);
+
+      // Oculte o formulário de edição
+      document.getElementById('formularioEdicao').style.display = 'none';
+    }
+
+    function deleteAnimal(event) {
+      // Obtenha o botão clicado
+      const button = event.currentTarget;
+
+      // Obtenha o ID do animal a ser excluído
+      const animalId = button.getAttribute('data-animal-id');
+
+      // Envie a requisição DELETE para a API
+      fetch(`/animal/delete/${ControledeGado.getElementById}`, {
+        method: 'DELETE'
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log('Animal excluído com sucesso!');
+            // Atualize a tabela ou faça qualquer outra ação necessária após a exclusão
+          } else {
+            console.error('Erro ao excluir o animal');
+          }
+        })
+        .catch((error) => {
+          console.error('Erro na requisição:', error);
+        });
+    }
+
+    // Obtenha todos os botões de exclusão
+    const deleteButtons = document.querySelectorAll('.btn_delete');
+
+    // Adicione um evento de clique a cada botão
+    deleteButtons.forEach((button) => {
+      button.addEventListener('click', deleteAnimal);
+    });
+
+  </script>

@@ -6,106 +6,103 @@ import java.util.List;
 import java.util.UUID;
 //import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.stream.Collectors;
-//import com.api.projeto.integrador.models.ControleDeGado;
-//import com.api.projeto.integrador.repositories.ControleDeGadoRepository;
+import com.api.projeto.integrador.models.ControleDeGado;
+import com.api.projeto.integrador.repositories.ControleDeGadoRepository;
 import java.util.Map;
 
 @Service
 public class ControleDeGadoService {
 
-    // @Autowired
-    /*
-     * private ControleDeGadoRepository controleDeGadoRepository;
-     * 
-     * public ControleDeGado salvar(ControleDeGado controleDeGado) {
-     * return controleDeGadoRepository.save(controleDeGado);
-     * }
-     * 
-     * public List<ControleDeGado> buscarTodos() {
-     * return controleDeGadoRepository.findAll();
-     * }
-     * 
-     * public List<ControleDeGado> buscarPorNumeroIdentificacao(String
-     * numeroIdentificacao) {
-     * return
-     * controleDeGadoRepository.findByNumeroIdentificacao(numeroIdentificacao);
-     * }
-     * 
-     * public Map<String, Object> calcularMediaTemperaturaPorData() {
-     * List<ControleDeGado> registros = controleDeGadoRepository.findAll();
-     */
+    @Autowired
 
-    // Agrupa os registros por numeroProdutor e calcula a média para cada grupo
+    private ControleDeGadoRepository controleDeGadoRepository;
+
+    public ControleDeGado salvar(ControleDeGado controleDeGado) {
+        return controleDeGadoRepository.save(controleDeGado);
+    }
+
+    public List<ControleDeGado> buscarTodos() {
+        return controleDeGadoRepository.findAll();
+    }
+
+    public List<ControleDeGado> buscarPorNumeroIdentificacao(String numeroIdentificacao) {
+        return controleDeGadoRepository.findByNumeroIdentificacao(numeroIdentificacao);
+    }
+
+    public Map<String, Object> calcularMediaTemperaturaPorData() {
+        List<ControleDeGado> registros = controleDeGadoRepository.findAll();
+
+        // Agrupa os registros por numeroProdutor e calcula a média para cada grupo
+
+        return registros.stream()
+                .collect(Collectors.groupingBy(
+                        ControleDeGado::getNumeroProdutor,
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                lista -> {
+                                    double temperaturaMedia = lista.stream()
+                                            .collect(Collectors.averagingDouble(ControleDeGado::getNumeroPropriedade));
+                                    double umidadeMedia = lista.stream().collect(
+                                            Collectors.averagingDouble(ControleDeGado::getNumeroIdentificacao));
+                                    return Map.of("temperaturaMedia", temperaturaMedia, "umidadeMedia",
+                                            umidadeMedia);
+                                })));
+    }
+
+    public double calcularMediaTemperatura() {
+        List<ControleDeGado> registros = controleDeGadoRepository.findAll();
+        return registros.stream()
+                .mapToDouble(ControleDeGado::getNumeroPropriedade)
+                .average()
+                .orElse(Double.NaN);
+    }
+
+    public double calcularMediaUmidade() {
+        List<ControleDeGado> registros = controleDeGadoRepository.findAll();
+        return registros.stream()
+                .mapToDouble(ControleDeGado::getNumeroIdentificacao)
+                .average()
+                .orElse(Double.NaN);
+    }
+
+    public double calcularTemperaturaMaxima() {
+        List<ControleDeGado> registros = controleDeGadoRepository.findAll();
+        return registros.stream()
+                .mapToDouble(ControleDeGado::getNumeroPropriedade)
+                .max()
+                .orElse(Double.NaN);
+    }
+
+    public double calcularUmidadeMaxima() {
+        List<ControleDeGado> registros = controleDeGadoRepository.findAll();
+        return registros.stream()
+                .mapToDouble(ControleDeGado::getNumeroIdentificacao)
+                .max()
+                .orElse(Double.NaN);
+    }
+
+    public double calcularTemperaturaMinima() {
+        List<ControleDeGado> registros = controleDeGadoRepository.findAll();
+        return registros.stream()
+                .mapToDouble(ControleDeGado::getNumeroPropriedade)
+                .min()
+                .orElse(Double.NaN);
+    }
+
+    public double calcularUmidadeMinima() {
+        List<ControleDeGado> registros = controleDeGadoRepository.findAll();
+        return registros.stream()
+                .mapToDouble(ControleDeGado::getNumeroIdentificacao)
+                .min()
+                .orElse(Double.NaN);
+    }
+
     /*
-     * return registros.stream()
-     * .collect(Collectors.groupingBy(
-     * ControleDeGado::getNumeroProdutor,
-     * Collectors.collectingAndThen(
-     * Collectors.toList(),
-     * lista -> {
-     * double temperaturaMedia = lista.stream()
-     * .collect(Collectors.averagingDouble(ControleDeGado::getNumeroPropriedade));
-     * double umidadeMedia = lista.stream().collect(
-     * Collectors.averagingDouble(ControleDeGado::getNumeroIdentificacao));
-     * return Map.of("temperaturaMedia", temperaturaMedia, "umidadeMedia",
-     * umidadeMedia);
-     * })));
-     * }
-     * 
-     * public double calcularMediaTemperatura() {
-     * List<ControleDeGado> registros = controleDeGadoRepository.findAll();
-     * return registros.stream()
-     * .mapToDouble(ControleDeGado::getNumeroPropriedade)
-     * .average()
-     * .orElse(Double.NaN);
-     * }
-     * 
-     * public double calcularMediaUmidade() {
-     * List<ControleDeGado> registros = controleDeGadoRepository.findAll();
-     * return registros.stream()
-     * .mapToDouble(ControleDeGado::getNumeroIdentificacao)
-     * .average()
-     * .orElse(Double.NaN);
-     * }
-     * 
-     * public double calcularTemperaturaMaxima() {
-     * List<ControleDeGado> registros = controleDeGadoRepository.findAll();
-     * return registros.stream()
-     * .mapToDouble(ControleDeGado::getNumeroPropriedade)
-     * .max()
-     * .orElse(Double.NaN);
-     * }
-     * 
-     * public double calcularUmidadeMaxima() {
-     * List<ControleDeGado> registros = controleDeGadoRepository.findAll();
-     * return registros.stream()
-     * .mapToDouble(ControleDeGado::getNumeroIdentificacao)
-     * .max()
-     * .orElse(Double.NaN);
-     * }
-     * 
-     * public double calcularTemperaturaMinima() {
-     * List<ControleDeGado> registros = controleDeGadoRepository.findAll();
-     * return registros.stream()
-     * .mapToDouble(ControleDeGado::getNumeroPropriedade)
-     * .min()
-     * .orElse(Double.NaN);
-     * }
-     * 
-     * public double calcularUmidadeMinima() {
-     * List<ControleDeGado> registros = controleDeGadoRepository.findAll();
-     * return registros.stream()
-     * .mapToDouble(ControleDeGado::getNumeroIdentificacao)
-     * .min()
-     * .orElse(Double.NaN);
-     * }
-     * 
-     * /*
      * public void deleteById(UUID id) {
      * if (controleDeGadoRepository.existsById(id)) {
      * controleDeGadoRepository.deleteById(id);
@@ -113,13 +110,12 @@ public class ControleDeGadoService {
      * }
      */
 
+    public String formatDate(Date data) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(data);
+    }
+
     /*
-     * public String formatDate(Date data) {
-     * SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-     * return sdf.format(data);
-     * }
-     * 
-     * /*
      * public int contarPorClassificacao(String classificacao) {
      * return controleDeGadoRepository.countByClassificacao(classificacao);
      * }
@@ -230,12 +226,9 @@ public class ControleDeGadoService {
      * }
      */
 
-    /*
-     * public Page<ControleDeGado> listarCabeçasDeGadoPaginado(int pagina, int
-     * tamanhoPagina) {
-     * Pageable paginacao = PageRequest.of(pagina, tamanhoPagina);
-     * return controleDeGadoRepository.findAll(paginacao);
-     * }
-     */
+    public Page<ControleDeGado> listarCabeçasDeGadoPaginado(int pagina, int tamanhoPagina) {
+        Pageable paginacao = PageRequest.of(pagina, tamanhoPagina);
+        return controleDeGadoRepository.findAll(paginacao);
+    }
 
 }
