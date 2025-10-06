@@ -96,7 +96,6 @@ public class EmailService {
                 "<p>Atenção!</p>" +
                 "<p>Umidade em <strong>" + cidade + "</strong> caiu para <span style='color:#1976d2;'>" + valor
                 + "%</span>.</p>" +
-                "<p>Verifique a ventilação e hidratação do ambiente.</p>" +
                 "</div>" +
                 "<div class='footer'>" +
                 "<p>© 2025 Sistema de Monitoramento | Este é um e-mail automático, não responda.</p>" +
