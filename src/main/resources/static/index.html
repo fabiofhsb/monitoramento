@@ -714,7 +714,7 @@
       }
 
       if (umidade < LIMITE_UMIDADE) {
-        fetch('https://seu-backend.onrender.com/animal/enviar-alerta', {
+        fetch('animal/enviar-alerta', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
