@@ -670,7 +670,7 @@
         const cidade = 'Guaratinguetá';
         const LIMITE_TEMPERATURA = 25.0;
         const LIMITE_UMIDADE = 50.0;
-        const emailUsuario = 'temperatura.compostbarn@gmail.com'; // Substitua pelo e-mail real do usuário
+        const emailUsuario = 'temperatura.compostbarn@gmail.com';
 
         fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cidade + '&appid=' + apiKey)
           .then(response => response.json())
@@ -679,65 +679,64 @@
             const temperaturaK = data.main.temp;
             const temperaturaC = temperaturaK - 273.15;
             const temperaturaCorrigida = temperaturaC - 0.5;
-            console.log("Temperatura atual: " + (temperaturaCorrigida.toFixed(1)) + " °C");
 
-            // Atualiza os gráficos
+            console.log("Temperatura atual: " + temperaturaCorrigida.toFixed(1) + " °C");
+            console.log("Umidade atual: " + umidade.toFixed(1) + " %");
+
             atualizarGrafico(temperaturaC);
             atualizarGraficoUmidade(umidade);
 
-            // Verifica se a temperatura ultrapassou o limite
             if (temperaturaCorrigida >= LIMITE_TEMPERATURA) {
               fetch('animal/enviar-alerta', {
                 method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                   email: emailUsuario,
-                  temperatura: temperaturaCorrigida.toFixed(1),
-                  cidade: cidade
+                  cidade: cidade,
+                  tipo: 'temperatura',
+                  valor: temperaturaCorrigida.toFixed(1)
                 })
               })
                 .then(response => {
                   if (response.ok) {
                     console.log('🚨 Alerta de temperatura enviado com sucesso!');
                   } else {
-                    console.error('❌ Falha ao enviar alerta.');
+                    console.error('❌ Falha ao enviar alerta de temperatura.');
                   }
                 })
                 .catch(error => {
-                  console.error('Erro ao enviar alerta:', error);
+                  console.error('Erro ao enviar alerta de temperatura:', error);
+                });
+            }
+
+            if (umidade < LIMITE_UMIDADE) {
+              fetch('animal/enviar-alerta', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email: emailUsuario,
+                  cidade: cidade,
+                  tipo: 'umidade',
+                  valor: umidade.toFixed(1)
+                })
+              })
+                .then(response => {
+                  if (response.ok) {
+                    console.log('💧 Alerta de umidade enviado com sucesso!');
+                  } else {
+                    console.error('❌ Falha ao enviar alerta de umidade.');
+                  }
+                })
+                .catch(error => {
+                  console.error('Erro ao enviar alerta de umidade:', error);
                 });
             }
           })
           .catch(error => console.error('Erro ao buscar temperatura:', error));
       }
 
-      if (umidade < LIMITE_UMIDADE) {
-        fetch('animal/enviar-alerta', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: emailUsuario,
-            temperatura: temperaturaCorrigida.toFixed(1),
-            cidade: cidade,
-            tipo: 'umidade',
-            valor: umidade.toFixed(1)
-          })
-        })
-          .then(response => {
-            if (response.ok) {
-              console.log('💧 Alerta de umidade enviado com sucesso!');
-            } else {
-              console.error('❌ Falha ao enviar alerta de umidade.');
-            }
-          })
-          .catch(error => {
-            console.error('Erro ao enviar alerta de umidade:', error);
-          });
-      }
+
+
 
       /*document.getElementById('temperatura').addEventListener('click', atualizarTemperatura);*/
       document.addEventListener('DOMContentLoaded', (event) => {
