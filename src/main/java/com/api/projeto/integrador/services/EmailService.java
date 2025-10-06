@@ -27,7 +27,12 @@ public class EmailService {
     private static final String API_KEY = "re_eWSUnm6S_LjVf1z4Rb2om3jJbVZdiohJx"; // Substitua pela sua chave
     private static final String RESEND_URL = "https://api.resend.com/emails";
 
-    public void enviarAlerta(String email, String cidade, String temperatura) {
+    public void enviarAlerta(String email, String cidade, String tipo, String valor) {
+        String assunto = tipo.equals("umidade") ? "💧 Alerta de Umidade Baixa" : "🚨 Alerta de Temperatura Elevada";
+        String html = tipo.equals("umidade")
+                ? gerarHtmlUmidade(cidade, valor)
+                : gerarHtmlTemperatura(cidade, valor);
+
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -37,8 +42,8 @@ public class EmailService {
         Map<String, Object> body = new HashMap<>();
         body.put("from", "Sistema de Alerta <onboarding@resend.dev>");
         body.put("to", email);
-        body.put("subject", "🚨 Alerta de Temperatura Elevada");
-        body.put("html", gerarHtml(cidade, temperatura));
+        body.put("subject", assunto);
+        body.put("html", html);
 
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
 
@@ -50,12 +55,11 @@ public class EmailService {
         }
     }
 
-    private String gerarHtml(String cidade, String temperatura) {
+    private String gerarHtmlTemperatura(String cidade, String valor) {
         return "<!DOCTYPE html>" +
                 "<html><head><meta charset='UTF-8'>" +
                 "<style>" +
-                "body { font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; }"
-                +
+                "body { font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; }" +
                 ".container { background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }"
                 +
                 ".header { font-size: 20px; color: #d32f2f; margin-bottom: 10px; }" +
@@ -66,19 +70,36 @@ public class EmailService {
                 "<div class='header'>Alerta de Temperatura Elevada!</div>" +
                 "<div class='content'>" +
                 "<p>Atenção!</p>" +
-                "<p>Detectamos uma temperatura acima do limite no <strong>Galpão.</strong></p>"
-                +
-                "<p><strong>Temperatura registrada:</strong> <span style='color:#d32f2f;'>" +
-                temperatura
-                + "°C.</span></p>" +
-                "<p>Recomenda-se verificar as condições do ambiente e tomar medidas preventivas para garantir o bem-estar dos animais.</p>"
-                +
-                "<p>Este alerta foi gerado automaticamente pelo sistema de monitoramento compost barn.</p>"
-                +
+                "<p>Temperatura em <strong>" + cidade + "</strong> atingiu <span style='color:#d32f2f;'>" + valor
+                + "°C</span>.</p>" +
+                "<p>Verifique o ambiente do galpão imediatamente.</p>" +
                 "</div>" +
                 "<div class='footer'>" +
-                "<p>© 2025 Sistema de Monitoramento | Este é um e-mail automático, não responda.</p>"
+                "<p>© 2025 Sistema de Monitoramento | Este é um e-mail automático, não responda.</p>" +
+                "</div></div></body></html>";
+    }
+
+    private String gerarHtmlUmidade(String cidade, String valor) {
+        return "<!DOCTYPE html>" +
+                "<html><head><meta charset='UTF-8'>" +
+                "<style>" +
+                "body { font-family: Arial, sans-serif; background-color: #f0f8ff; padding: 20px; }" +
+                ".container { background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }"
                 +
+                ".header { font-size: 20px; color: #1976d2; margin-bottom: 10px; }" +
+                ".content { font-size: 16px; color: #333; }" +
+                ".footer { margin-top: 20px; font-size: 12px; color: #777; }" +
+                "</style></head><body>" +
+                "<div class='container'>" +
+                "<div class='header'>Alerta de Umidade Baixa!</div>" +
+                "<div class='content'>" +
+                "<p>Atenção!</p>" +
+                "<p>Umidade em <strong>" + cidade + "</strong> caiu para <span style='color:#1976d2;'>" + valor
+                + "%</span>.</p>" +
+                "<p>Verifique a ventilação e hidratação do ambiente.</p>" +
+                "</div>" +
+                "<div class='footer'>" +
+                "<p>© 2025 Sistema de Monitoramento | Este é um e-mail automático, não responda.</p>" +
                 "</div></div></body></html>";
     }
 

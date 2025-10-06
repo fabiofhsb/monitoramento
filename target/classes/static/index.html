@@ -669,6 +669,7 @@
         const apiKey = '9e5e8c6d3873cae24b71872aec659579';
         const cidade = 'Guaratinguetá';
         const LIMITE_TEMPERATURA = 25.0;
+        const LIMITE_UMIDADE = 50.0;
         const emailUsuario = 'temperatura.compostbarn@gmail.com'; // Substitua pelo e-mail real do usuário
 
         fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cidade + '&appid=' + apiKey)
@@ -710,6 +711,32 @@
             }
           })
           .catch(error => console.error('Erro ao buscar temperatura:', error));
+      }
+
+      if (umidade < LIMITE_UMIDADE) {
+        fetch('https://seu-backend.onrender.com/animal/enviar-alerta', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: emailUsuario,
+            temperatura: temperaturaCorrigida.toFixed(1),
+            cidade: cidade,
+            tipo: 'umidade',
+            valor: umidade.toFixed(1)
+          })
+        })
+          .then(response => {
+            if (response.ok) {
+              console.log('💧 Alerta de umidade enviado com sucesso!');
+            } else {
+              console.error('❌ Falha ao enviar alerta de umidade.');
+            }
+          })
+          .catch(error => {
+            console.error('Erro ao enviar alerta de umidade:', error);
+          });
       }
 
       /*document.getElementById('temperatura').addEventListener('click', atualizarTemperatura);*/
