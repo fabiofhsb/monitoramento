@@ -22,18 +22,12 @@ import java.util.Map;
 @RequestMapping("/animal")
 public class ControleDeGadoController {
 
-    @GetMapping("/teste-email")
-    public ResponseEntity<String> testeEmail() {
-        emailService.enviarAlerta("temp.compost@gmail.com", "Guaratinguetá", "39.0");
-        return ResponseEntity.ok("Email enviado com sucesso!");
-    }
-
     @Autowired
     private EmailService emailService;
 
     @PostMapping("/enviar-alerta")
     public ResponseEntity<?> enviarAlerta(@RequestBody AlertaDTO alerta) {
-        emailService.enviarAlerta(alerta.getEmail(), alerta.getCidade(), alerta.getTemperatura());
+        emailService.enviarAlerta(alerta.getEmail(), alerta.getCidade(), alerta.getTipo(), alerta.getValor());
         return ResponseEntity.ok().build();
     }
 
