@@ -669,7 +669,7 @@
         const apiKey = '9e5e8c6d3873cae24b71872aec659579';
         const cidade = 'Guaratinguetá';
         const LIMITE_TEMPERATURA = 25.0;
-        const emailUsuario = 'temp.compost@gmail.com'; // Substitua pelo e-mail real do usuário
+        const emailUsuario = 'temperatura.compostbarn@gmail.com'; // Substitua pelo e-mail real do usuário
 
         fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cidade + '&appid=' + apiKey)
           .then(response => response.json())
@@ -678,6 +678,7 @@
             const temperaturaK = data.main.temp;
             const temperaturaC = temperaturaK - 273.15;
             const temperaturaCorrigida = temperaturaC - 0.5;
+            console.log("Temperatura atual: " + (temperaturaCorrigida.toFixed(1)) + " °C");
 
             // Atualiza os gráficos
             atualizarGrafico(temperaturaC);
@@ -685,7 +686,7 @@
 
             // Verifica se a temperatura ultrapassou o limite
             if (temperaturaCorrigida >= LIMITE_TEMPERATURA) {
-              fetch('animal/api/enviar-alerta', {
+              fetch('animal/enviar-alerta', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'

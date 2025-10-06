@@ -31,7 +31,7 @@ public class ControleDeGadoController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/api/enviar-alerta")
+    @PostMapping("/enviar-alerta")
     public ResponseEntity<?> enviarAlerta(@RequestBody AlertaDTO alerta) {
         emailService.enviarAlerta(alerta.getEmail(), alerta.getCidade(), alerta.getTemperatura());
         return ResponseEntity.ok().build();
