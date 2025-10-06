@@ -51,12 +51,35 @@ public class EmailService {
     }
 
     private String gerarHtml(String cidade, String temperatura) {
-        return "<html><body>" +
-                "<h2>Alerta de Temperatura Elevada!</h2>" +
-                "<p>Temperatura em <strong>" + cidade + "</strong> atingiu <strong>" + temperatura + "°C</strong>.</p>"
+        return "<!DOCTYPE html>" +
+                "<html><head><meta charset='UTF-8'>" +
+                "<style>" +
+                "body { font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; }"
                 +
-                "<p>Verifique o ambiente do galpão imediatamente.</p>" +
-                "</body></html>";
+                ".container { background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }"
+                +
+                ".header { font-size: 20px; color: #d32f2f; margin-bottom: 10px; }" +
+                ".content { font-size: 16px; color: #333; }" +
+                ".footer { margin-top: 20px; font-size: 12px; color: #777; }" +
+                "</style></head><body>" +
+                "<div class='container'>" +
+                "<div class='header'>Alerta de Temperatura Elevada!</div>" +
+                "<div class='content'>" +
+                "<p>Atenção!</p>" +
+                "<p>Detectamos uma temperatura acima do limite no <strong>Galpão.</strong></p>"
+                +
+                "<p><strong>Temperatura registrada:</strong> <span style='color:#d32f2f;'>" +
+                temperatura
+                + "°C.</span></p>" +
+                "<p>Recomenda-se verificar as condições do ambiente e tomar medidas preventivas para garantir o bem-estar dos animais.</p>"
+                +
+                "<p>Este alerta foi gerado automaticamente pelo sistema de monitoramento compost barn.</p>"
+                +
+                "</div>" +
+                "<div class='footer'>" +
+                "<p>© 2025 Sistema de Monitoramento | Este é um e-mail automático, não responda.</p>"
+                +
+                "</div></div></body></html>";
     }
 
     /*
