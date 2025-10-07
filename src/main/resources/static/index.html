@@ -668,8 +668,8 @@
       function atualizarTemperatura() {
         const apiKey = '9e5e8c6d3873cae24b71872aec659579';
         const cidade = 'Guaratinguetá';
-        const LIMITE_TEMPERATURA = 25.0;
-        const LIMITE_UMIDADE = 50.0;
+        const LIMITE_TEMPERATURA = 20.0;
+        const LIMITE_UMIDADE = 60.0;
         const emailUsuario = 'temperatura.compostbarn@gmail.com';
 
         fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cidade + '&appid=' + apiKey)
@@ -678,12 +678,12 @@
             const umidade = data.main.humidity;
             const temperaturaK = data.main.temp;
             const temperaturaC = temperaturaK - 273.15;
-            const temperaturaCorrigida = temperaturaC - 0.5;
+            const temperaturaCorrigida = temperaturaC - 2.5;
 
             console.log("Temperatura atual: " + temperaturaCorrigida.toFixed(1) + " °C");
             console.log("Umidade atual: " + umidade.toFixed(1) + " %");
 
-            atualizarGrafico(temperaturaC);
+            atualizarGrafico(temperaturaCorrigida);
             atualizarGraficoUmidade(umidade);
 
             if (temperaturaCorrigida >= LIMITE_TEMPERATURA) {
@@ -779,8 +779,8 @@
 
 
 
-      function atualizarGrafico(temperaturaC) {
-        var percent = temperaturaC / 50; // Converte a temperatura para uma porcentagem
+      function atualizarGrafico(temperaturaCorrigida) {
+        var percent = temperaturaCorrigida / 50; // Converte a temperatura para uma porcentagem
         var angle = percent * Math.PI; // Converte a porcentagem para um ângulo
 
         var arcAtual = d3.arc()
@@ -795,7 +795,7 @@
           .attr("fill", "#20B2AA");
 
         // Atualiza o texto com a temperatura atual
-        temperaturaTexto.text((temperaturaC.toFixed(1) - 0.5) + "°C");
+        temperaturaTexto.text((temperaturaCorrigida.toFixed(1)) + "°C");
       }
 
       // Cria um gráfico de meio círculo com D3.js
