@@ -347,32 +347,38 @@
     }
 
     .container {
+
       display: flex;
       justify-content: center;
-      gap: 1.5%;
+      /*gap: 1.5%;*/
       padding: 20px;
+      margin: auto;
+      text-align: center;
     }
 
     .coluna-esquerda {
+
       display: flex;
       flex-direction: column;
-      width: 25%;
-      margin-right: 1.5%;
+      width: 20%;
+      margin-right: 15px;
       /*background-color: #FFD700;
       /* Ajuste conforme necessário */
     }
 
     .coluna-direita {
+
       display: flex;
       flex-direction: column;
       gap: 0;
       width: 40%;
+      margin-left: 0px;
     }
 
     .div1,
     .div2 {
       border: 1px solid black;
-      width: 450px;
+      width: 100%;
       padding: 0px;
 
       /*box-sizing: border-box;*/
@@ -386,7 +392,7 @@
     .div3,
     .div4 {
       /*border: 1px solid black;*/
-      width: 450px;
+      width: 100%;
       padding: 0px;
 
       /*box-sizing: border-box;*/
@@ -451,27 +457,27 @@
 
       /*margin-left: auto;*/
       text-align: center;
-      margin-left: 16%;
+      margin-left: ;
     }
 
     #graficoUmidade {
 
       /*margin-left: auto;*/
       text-align: center;
-      margin-left: 16%;
+      margin-left: auto;
     }
 
     p {
       margin-top: 5%;
       text-align: center;
-      font-size: 28px;
+      font-size: clamp(1rem, 2vw, 1.75rem);
     }
 
-    #monitoramento {
+    /*#monitoramento {
       padding: 20px;
       font-size: 40px;
       text-align: center;
-    }
+    }*/
 
     .controle-duplo {
       display: flex;
@@ -514,6 +520,24 @@
       /*padding: 10px 20px;*/
       font-size: 16px;
       cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      p {
+        font-size: 1.25rem;
+        /* ~20px */
+      }
+
+      .desligado,
+      .ligado {
+        font-size: 0.875rem;
+        /* ~14px */
+        width: 100%;
+      }
+
+      .controle-individual {
+        padding: 0.75rem;
+      }
     }
   </style>
 
@@ -747,8 +771,10 @@
       // Cria um gráfico de meio círculo com D3.js
       var svg = d3.select("#grafico")
         .append("svg")
-        .attr("width", 400)
-        .attr("height", 240);
+        .attr("viewBox", "0 0 320 240")
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .style("width", "100%")
+        .style("height", "auto");
 
       var g = svg.append("g")
         .attr("transform", "translate(160,160)");
@@ -801,8 +827,10 @@
       // Cria um gráfico de meio círculo com D3.js
       var svg1 = d3.select("#graficoUmidade")
         .append("svg")
-        .attr("width", 400)
-        .attr("height", 240);
+        .attr("viewBox", "0 0 320 240")
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .style("width", "100%")
+        .style("height", "auto");
 
       var g1 = svg1.append("g")
         .attr("transform", "translate(160,160)");
