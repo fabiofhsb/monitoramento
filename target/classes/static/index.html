@@ -372,7 +372,7 @@
       flex-direction: column;
       gap: 0;
       width: 40%;
-      margin-left: 0px;
+      margin-left: 25px;
     }
 
     .div1,
@@ -457,7 +457,7 @@
 
       /*margin-left: auto;*/
       text-align: center;
-      margin-left: ;
+      margin-left: 0px;
     }
 
     #graficoUmidade {
@@ -538,6 +538,113 @@
       .controle-individual {
         padding: 0.75rem;
       }
+    }
+
+    #titulo {
+      /*border: 1px solid black;*/
+      /*padding-left: 50px;
+      padding-right: 50px;*/
+      align-items: center;
+      font-size: 25px;
+      text-align: center;
+      margin-top: 50px;
+      width: 83%;
+      max-width: 650px;
+      border-radius: 25px;
+      padding-top: 0px;
+      padding-bottom: 30px;
+    }
+
+    .quadro-alerta {
+      /*background-color: #FFF8DC;
+      /* amarelo suave */
+      border: 2px solid #FFD700;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      margin-top: 20px;
+    }
+
+
+
+    .status-texto {
+      font-size: 24px;
+      font-weight: bold;
+      color: #000000;
+      margin-bottom: 10px;
+    }
+
+    .status-detalhes {
+      font-size: 16px;
+      color: #000000;
+    }
+
+    .legenda-status {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .item-legenda {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cor-legenda {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+    }
+
+    .ideal {
+      background-color: #4CAF50;
+    }
+
+    .razoavel {
+      background-color: #FFC107;
+    }
+
+    .critica {
+      background-color: #F44336;
+    }
+
+    .status-ideal {
+      background-color: #4CAF50;
+      border: 2px solid #4CAF50;
+    }
+
+    .status-razoavel {
+      background-color: #FFC107;
+      border: 2px solid #FFC107;
+    }
+
+    .status-critica {
+      background-color: #F44336;
+      border: 2px solid #F44336;
+    }
+
+
+    @keyframes piscar {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .piscar {
+      animation: piscar 1s infinite;
     }
   </style>
 
@@ -660,6 +767,28 @@
           <button id="botaoLampada" class="desligado">DESLIGADO</button>
         </div>
       </div>
+      <div id=titulo>Condição do Galpão
+        <div class="quadro-alerta" id="quadroAlerta">
+          <div class="status-texto" id="textoStatus"></div>
+          <div class="status-detalhes" id="detalhesStatus"></div>
+        </div>
+
+
+        <div class="legenda-status">
+          <div class="item-legenda">
+            <div class="cor-legenda ideal"></div>
+            <span>Ideal</span>
+          </div>
+          <div class="item-legenda">
+            <div class="cor-legenda razoavel"></div>
+            <span>Moderada</span>
+          </div>
+          <div class="item-legenda">
+            <div class="cor-legenda critica"></div>
+            <span>Ruim</span>
+          </div>
+        </div>
+      </div>
 
 
     </div>
@@ -667,6 +796,10 @@
 
 
     <script>
+
+
+
+
       function alternarEstado(botao, nome) {
         const ligado = botao.classList.contains('ligado');
         botao.classList.toggle('ligado');
@@ -692,8 +825,8 @@
       function atualizarTemperatura() {
         const apiKey = '9e5e8c6d3873cae24b71872aec659579';
         const cidade = 'Guaratinguetá';
-        const LIMITE_TEMPERATURA = 20.0;
-        const LIMITE_UMIDADE = 60.0;
+        const LIMITE_TEMPERATURA = 25.0;
+        const LIMITE_UMIDADE = 50.0;
         const emailUsuario = 'temperatura.compostbarn@gmail.com';
 
         fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cidade + '&appid=' + apiKey)
@@ -709,6 +842,53 @@
 
             atualizarGrafico(temperaturaCorrigida);
             atualizarGraficoUmidade(umidade);
+
+            const quadro = document.getElementById('quadroAlerta');
+            const textoStatus = document.getElementById('textoStatus');
+            const detalhesStatus = document.getElementById('detalhesStatus');
+
+            // Remove classes anteriores
+            quadro.classList.remove('status-ideal', 'status-razoavel', 'status-critica', 'piscar');
+
+            // Lógica de condição
+            if (temperaturaCorrigida < LIMITE_TEMPERATURA && umidade >= LIMITE_UMIDADE) {
+              quadro.classList.add('status-ideal');
+              textoStatus.textContent = 'BOA';
+              detalhesStatus.textContent = 'Temperatura e umidade dentro dos padrões';
+
+            } else if (temperaturaCorrigida > LIMITE_TEMPERATURA && temperaturaCorrigida < 32 && umidade < LIMITE_UMIDADE && umidade > 40) {
+              quadro.classList.add('status-razoavel');
+              textoStatus.textContent = 'MODERADA';
+              detalhesStatus.textContent = 'AVISO: Temperatura elevada e umidade baixa';
+            }
+            else if (temperaturaCorrigida > LIMITE_TEMPERATURA && temperaturaCorrigida < 32 && umidade > LIMITE_UMIDADE) {
+              quadro.classList.add('status-razoavel');
+              textoStatus.textContent = 'MODERADA';
+              detalhesStatus.textContent = 'AVISO: Temperatura elevada';
+
+            } else if (temperaturaCorrigida <= LIMITE_TEMPERATURA && umidade < LIMITE_UMIDADE) {
+              quadro.classList.add('status-razoavel');
+              textoStatus.textContent = 'MODERADA';
+              detalhesStatus.textContent = 'AVISO: Umidade baixa';
+            }
+            else if (temperaturaCorrigida >= 32 && umidade > LIMITE_UMIDADE) {
+              quadro.classList.add('status-critica', 'piscar');
+              textoStatus.textContent = 'RUIM';
+              detalhesStatus.textContent = 'ALERTA: Temperatura muito elevada!';
+            }
+            else if (temperaturaCorrigida <= LIMITE_TEMPERATURA && umidade < 40) {
+              quadro.classList.add('status-critica', 'piscar');
+              textoStatus.textContent = 'RUIM';
+              detalhesStatus.textContent = 'ALERTA: Umidade muito baixa!';
+            }
+            else {
+              quadro.classList.add('status-critica', 'piscar');
+              textoStatus.textContent = 'RUIM';
+              detalhesStatus.textContent = 'ALERTA: Temperatura e umidade fora dos limites!';
+            }
+
+
+
 
             if (temperaturaCorrigida >= LIMITE_TEMPERATURA) {
               fetch('animal/enviar-alerta', {
@@ -758,8 +938,6 @@
           })
           .catch(error => console.error('Erro ao buscar temperatura:', error));
       }
-
-
 
 
       /*document.getElementById('temperatura').addEventListener('click', atualizarTemperatura);*/
