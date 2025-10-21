@@ -856,7 +856,7 @@
               textoStatus.textContent = 'BOA';
               detalhesStatus.textContent = 'Temperatura e umidade dentro dos padrões';
 
-            } else if (temperaturaCorrigida > LIMITE_TEMPERATURA && temperaturaCorrigida < 32 && umidade < LIMITE_UMIDADE && umidade > 40) {
+            } else if (temperaturaCorrigida > LIMITE_TEMPERATURA && temperaturaCorrigida < 32 && umidade < LIMITE_UMIDADE && umidade > 30) {
               quadro.classList.add('status-razoavel');
               textoStatus.textContent = 'MODERADA';
               detalhesStatus.textContent = 'AVISO: Temperatura elevada e umidade baixa';
@@ -866,7 +866,7 @@
               textoStatus.textContent = 'MODERADA';
               detalhesStatus.textContent = 'AVISO: Temperatura elevada';
 
-            } else if (temperaturaCorrigida <= LIMITE_TEMPERATURA && umidade < LIMITE_UMIDADE) {
+            } else if (temperaturaCorrigida <= LIMITE_TEMPERATURA && umidade < LIMITE_UMIDADE && umidade > 30) {
               quadro.classList.add('status-razoavel');
               textoStatus.textContent = 'MODERADA';
               detalhesStatus.textContent = 'AVISO: Umidade baixa';
@@ -876,7 +876,7 @@
               textoStatus.textContent = 'RUIM';
               detalhesStatus.textContent = 'ALERTA: Temperatura muito elevada!';
             }
-            else if (temperaturaCorrigida <= LIMITE_TEMPERATURA && umidade < 40) {
+            else if (temperaturaCorrigida <= LIMITE_TEMPERATURA && umidade < 30) {
               quadro.classList.add('status-critica', 'piscar');
               textoStatus.textContent = 'RUIM';
               detalhesStatus.textContent = 'ALERTA: Umidade muito baixa!';
