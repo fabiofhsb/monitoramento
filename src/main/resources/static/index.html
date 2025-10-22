@@ -347,7 +347,7 @@
     }
 
     .container {
-
+      flex-wrap: wrap;
       display: flex;
       justify-content: center;
       /*gap: 1.5%;*/
@@ -380,10 +380,11 @@
       border: 1px solid black;
       width: 100%;
       padding: 0px;
-
+      max-width: 400px;
       /*box-sizing: border-box;*/
-      margin: auto;
-      margin-bottom: 15px;
+      margin: 0 auto 15px auto;
+      /* centraliza e espaça verticalmente */
+      /*margin-bottom: 15px;
       /*margin-right: 0.5%;*/
       border-radius: 30px;
       text-align: center;
@@ -452,22 +453,15 @@
       margin-top: 15px;
     }
 
-    #grafico {
-
-
-      /*margin-left: auto;*/
-      text-align: center;
-      margin-left: 0px;
-    }
-
+    #grafico,
     #graficoUmidade {
-
-      /*margin-left: auto;*/
+      margin: auto;
       text-align: center;
-      margin-left: auto;
+
     }
 
     p {
+
       margin-top: 5%;
       text-align: center;
       font-size: clamp(1rem, 2vw, 1.75rem);
@@ -523,6 +517,23 @@
     }
 
     @media (max-width: 768px) {
+
+      #monitoramento {
+        font-size: 1.75rem;
+        /* ~28px */
+      }
+
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .coluna-esquerda,
+      .coluna-direita {
+        width: 100%;
+        margin: 0;
+      }
+
       p {
         font-size: 1.25rem;
         /* ~20px */
@@ -646,6 +657,13 @@
     .piscar {
       animation: piscar 1s infinite;
     }
+
+    #grafico svg,
+    #graficoUmidade svg {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+    }
   </style>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
@@ -747,12 +765,15 @@
   <div class="container">
     <div class="coluna-esquerda">
       <div class="div1">
-        <p>Temperatura</p>
-        <div id="grafico"></div>
+
+        <div id="grafico">
+          <p>Temperatura</p>
+        </div>
       </div>
       <div class="div2">
-        <p>Umidade</p>
-        <div id="graficoUmidade"></div>
+        <div id="graficoUmidade">
+          <p>Umidade</p>
+        </div>
       </div>
     </div>
 
@@ -949,13 +970,13 @@
       // Cria um gráfico de meio círculo com D3.js
       var svg = d3.select("#grafico")
         .append("svg")
-        .attr("viewBox", "0 0 320 240")
+        .attr("viewBox", "0 0 320 200")
         .attr("preserveAspectRatio", "xMidYMid meet")
         .style("width", "100%")
         .style("height", "auto");
 
       var g = svg.append("g")
-        .attr("transform", "translate(160,160)");
+        .attr("transform", "translate(160,130)");
 
       var arc = d3.arc()
         .innerRadius(116)
@@ -1005,13 +1026,13 @@
       // Cria um gráfico de meio círculo com D3.js
       var svg1 = d3.select("#graficoUmidade")
         .append("svg")
-        .attr("viewBox", "0 0 320 240")
+        .attr("viewBox", "0 0 320 200")
         .attr("preserveAspectRatio", "xMidYMid meet")
         .style("width", "100%")
         .style("height", "auto");
 
       var g1 = svg1.append("g")
-        .attr("transform", "translate(160,160)");
+        .attr("transform", "translate(160,130)");
 
       var arc = d3.arc()
         .innerRadius(116)
