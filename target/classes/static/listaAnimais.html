@@ -409,10 +409,6 @@
     }
 
     h9 {
-      margin-top: 0px;
-      position: absolute;
-      right: 15%;
-      bottom: 85%;
       font-size: 21px;
     }
 
@@ -491,7 +487,7 @@
       /* Tamanho inicial da fonte */
     }
 
-    #aumentarFonte {
+    /*#aumentarFonte {
       color: white;
       font-size: 17px;
       bottom: 84%;
@@ -510,7 +506,7 @@
       background-color: #006400;
       position: absolute;
       right: 10%;
-    }
+    }*/
 
     br {
       margin-top: 15px;
@@ -587,6 +583,39 @@
     }
 
     #chart_div {}
+
+    #cabecalho {
+      position: relative;
+
+    }
+
+    .acessibilidade {
+      position: absolute;
+      bottom: 2%;
+      right: 9%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      font-size: 21px;
+    }
+
+    #acessibilidade span {
+      font-weight: bold;
+    }
+
+    #aumentarFonte,
+    #diminuirFonte {
+      margin-left: 10px;
+      border: none;
+      background-color: #0079C2;
+      color: white;
+
+      font-size: 20px;
+
+
+      cursor: pointer;
+    }
   </style>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
@@ -704,6 +733,7 @@
         return [];
       }
     }
+
   </script>
 
 
@@ -711,12 +741,16 @@
 
 <body>
 
-  <h1>
+  <h1 id="cabecalho">
     <img src="/images/temp1.png" width="80px" height="80px">
     Monitoramento Ambiental<br><br>
     em Compost Barn
     <img src="/images/temp2_frio.png" width="80px" height="80px">
-
+    <div class="acessibilidade">
+      <h9>Acessibilidade</h9>
+      <button id="aumentarFonte">A+</button>
+      <button id="diminuirFonte">A-</button>
+    </div>
   </h1>
 
   <h3>
@@ -883,21 +917,20 @@
 
 
   <script>
-    /*const aumentarBotao = document.getElementById('aumentarFonte');
+    //Aumentar o tamanho da fonte (acessibilidade)
+    const aumentarBotao = document.getElementById('aumentarFonte');
     const diminuirBotao = document.getElementById('diminuirFonte');
     const meuTexto = document.getElementById('meuTexto');
-
     aumentarBotao.addEventListener('click', function () {
+      const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize; const novoTamanho = parseFloat(tamanhoAtual) + 2;
+      // Aumenta 2 pixels 
+      meuTexto.style.fontSize = novoTamanho + 'px';
+    }); diminuirBotao.addEventListener('click', function () {
       const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
-      const novoTamanho = parseFloat(tamanhoAtual) + 2; // Aumenta 2 pixels
+      const novoTamanho = parseFloat(tamanhoAtual) - 2;
+      // Diminui 2 pixels 
       meuTexto.style.fontSize = novoTamanho + 'px';
     });
-
-    diminuirBotao.addEventListener('click', function () {
-      const tamanhoAtual = window.getComputedStyle(meuTexto).fontSize;
-      const novoTamanho = parseFloat(tamanhoAtual) - 2; // Diminui 2 pixels
-      meuTexto.style.fontSize = novoTamanho + 'px';
-    });*/
 
 
     const formAnimal = document.querySelector("#form-animal");
